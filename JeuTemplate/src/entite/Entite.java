@@ -8,7 +8,10 @@ import engine.GamePainter;
 
 public abstract class Entite implements GamePainter{
 
-    protected static final int WIDTH = 100;
+    /**
+	 * la taille des cases
+	 */
+	protected static final int WIDTH = 100;
 	protected static final int HEIGHT = 100;
 
     private int posX;
@@ -26,7 +29,7 @@ public abstract class Entite implements GamePainter{
     }
 
     public Entite (int px, int py, int h, int l){
-        
+
         this.posX = px;
         this.posY = py;
         this.hauteur = h;
@@ -42,6 +45,7 @@ public abstract class Entite implements GamePainter{
 
     public void moveX(int dx){
         this.posX += dx;
+
     }
 
     public void moveY(int dy){
