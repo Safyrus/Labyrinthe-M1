@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import engine.GamePainter;
-
-public abstract class Entite implements GamePainter{
+public abstract class Entite{
 
     /**
 	 * la taille des cases
@@ -58,12 +56,12 @@ public abstract class Entite implements GamePainter{
         return this.posY;
     }
 
-    @Override
+    
 	public int getWidth() {
 		return this.width;
 	}
 
-	@Override
+	
 	public int getHeight() {
 		return this.height;
 	}

@@ -2,7 +2,6 @@ package start;
 
 import controller.HerosController;
 import engine.GameEngineGraphical;
-import entite.*;
 import game.Labyrinthe;
 import game.LabyrintheManager;
 
