@@ -11,9 +11,11 @@ import entite.*;
 public class Labyrinthe implements Game{
 
     private Heros heros;
+	private LabyrintheManager labyMage;
 
-    public Labyrinthe(Heros h){
-        this.heros = h;
+    public Labyrinthe( LabyrintheManager labymage){
+		this.labyMage = labymage;
+		this.heros = labyMage.getHeros();
     }
 
     public Labyrinthe(String source) {
@@ -59,7 +61,7 @@ public class Labyrinthe implements Game{
                 break;
 
         }
-		System.out.println("Execute "+commande);
+		//System.out.println("Execute "+commande);
 	}
 
 	/**
