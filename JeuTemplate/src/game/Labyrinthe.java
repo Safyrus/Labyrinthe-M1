@@ -40,19 +40,19 @@ public class Labyrinthe implements Game{
         switch (commande) {
 
             case DOWN:
-                heros.moveY(-10);
+                heros.moveY(1);
                 break;
 
             case UP:
-                heros.moveY(10);
+                heros.moveY(-1);
                 break;
 
             case LEFT:
-                heros.moveX(-10);
+                heros.moveX(-1);
                 break;
             
             case RIGHT:
-                heros.moveY(10);
+                heros.moveX(1);
                 break;
 
             case IDLE:
