@@ -1,7 +1,5 @@
 package entite;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public abstract class Entite{
@@ -23,15 +21,10 @@ public abstract class Entite{
         this.speed[0] = 1;
         this.speed[1] = 1;
 
-
     }
 
-    public void draw(BufferedImage im) {
-		Graphics2D crayon = (Graphics2D) im.getGraphics();
-		crayon.drawRect(this.getPosX(), this.getPosY(), this.width, this.height);
-        crayon.setColor(Color.blue);
-        crayon.fillRect(this.getPosX(), this.getPosY(), this.width+1, this.height+1);
-	}
+    public abstract void draw(BufferedImage im);
+		
 
     public void move(int dx, int dy){
         this.pos[0] += dx;

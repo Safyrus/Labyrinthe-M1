@@ -1,18 +1,15 @@
 package cases;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import game.LabyrintheObject;
 
-public class Case {
+public abstract class Case {
 
-    protected int posX;
-    protected int posY;
-    protected final int width;
-    protected final int height; 
-    LabyrintheObject type = LabyrintheObject.WALL;
+    final int posX;
+    final int posY;
+    final int width;
+    final int height; 
 
     public Case(int x, int y, int h, int w){
         this.posX = x;
@@ -21,16 +18,11 @@ public class Case {
         this.height = h;
     }
 
-    public LabyrintheObject getType() {
-        return type;
-    }
+    public abstract LabyrintheObject getType();
 
-    public void draw(BufferedImage im){
-        Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.drawRect(this.posX, this.posY, this.width, this.height);
-        crayon.setColor(Color.RED);
-        crayon.fillRect(this.posX, this.posY, this.width, this.height);
-    }
+    public abstract void draw(BufferedImage im);
+
+    abstract boolean estTraversable();
 
     public int getPosX(){
         return this.posX;
