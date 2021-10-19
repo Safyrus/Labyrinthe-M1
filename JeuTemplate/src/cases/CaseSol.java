@@ -18,7 +18,7 @@ public class CaseSol extends Case{
     }
 
     public LabyrintheObject getType(){
-        return LabyrintheObject.WALL;
+        return LabyrintheObject.GROUND;
     }
     
 }

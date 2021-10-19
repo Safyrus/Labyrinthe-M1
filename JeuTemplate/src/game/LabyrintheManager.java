@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.BufferedReader;
@@ -11,6 +12,7 @@ import engine.GamePainter;
 import entite.Heros;
 import cases.Case;
 import cases.CaseMur;
+import cases.CaseSol;
 
 public class LabyrintheManager implements GamePainter{
 
@@ -21,26 +23,24 @@ public class LabyrintheManager implements GamePainter{
 	private static final int HEIGHT = 1080;
     private static final int WIDTHCASE = 10;
 	private static final int HEIGHTCASE = 10;
-    private Case[][] monde = new CaseMur[HEIGHT][WIDTHCASE];
+    private ArrayList<Case> laby;
     
     public LabyrintheManager(){
+
+        laby = new ArrayList<Case>(HEIGHTCASE*WIDTHCASE);
         this.heros = new Heros(100,100,caseSize,caseSize);
         this.objectDic = new HashMap<>();
         this.objectDic.put('0', LabyrintheObject.GROUND);
         this.objectDic.put('1', LabyrintheObject.WALL);
-        this.buildMonde("Labyrinthe-M1/JeuTemplate/src/monde/default.txt");
+        //this.buildMonde("Labyrinthe-M1/JeuTemplate/src/monde/default.txt");
         
     }
 
     public void draw(BufferedImage im){
-        
 
-        for (int x = 0; x < WIDTHCASE; x++) {
-            for (int y = 0; y < HEIGHTCASE; y++) {
-                monde[x][y].draw(im);
-			}
-		}
-
+        for (Case case1 : laby) {
+            case1.draw(im);
+        }
         heros.draw(im);
     }
 
@@ -54,11 +54,11 @@ public class LabyrintheManager implements GamePainter{
                 for (int x = 0; x < ligne.length(); x++) {
                     switch (objectDic.get(ligne.charAt(x))) {
                         case GROUND:
-                            //monde[x][y] = new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize);
+                            laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
                             break;
                     
                         case WALL:
-                            monde[x][y] = new CaseMur(x*caseSize, y*caseSize, caseSize, caseSize);
+                            laby.add(new CaseMur(x*caseSize, y*caseSize, caseSize, caseSize));
                             break;
                     }
                 }  
@@ -84,5 +84,4 @@ public class LabyrintheManager implements GamePainter{
     public Heros getHeros(){
         return this.heros;
     }
-
 }

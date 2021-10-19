@@ -1,0 +1,82 @@
+@startuml sprint1
+
+class Labyrinthe{
+
+    Labyrinthe(LabyrintheManager labymage)
+
+}
+
+interface Game{
+
+}
+Labyrinthe ..> Game
+Labyrinthe --"1" LabyrintheManager
+
+class LabyrintheManager{
+    int caseSize
+    int WIDTH
+    int HEIGHT
+    int WIDTHCASE
+    int HEIGHTCASE
+
+    LabyrintheManager()
+    void draw(BufferedImage im)
+    Heros getHeros()    
+}
+
+LabyrintheManager -- "1" Heros
+LabyrintheManager -- "*" Monstre
+LabyrintheManager ..> GamePainter
+
+abstract class Entite{
+
+    int[] pos 
+    int wigth
+    int height
+    int[] speed
+
+    Entite(int px, int py, int h, int w)
+    void draw(BufferedImage im)
+    void move(int dx, int dy)
+    int getPosX()
+    int getPosY()
+    int getWidth()
+    int getHeight()
+    int getSpeedX()
+    int getSpeedY()
+
+}
+
+class Heros{
+
+}
+
+Heros --> Entite
+
+abstract class Monstre{
+
+}
+
+Monstre --> Entite
+
+
+class MonstreNormal{
+
+}
+
+MonstreNormal --> Monstre
+
+class HerosController{
+    Cmd commandeEnCours
+
+    HerosController()
+}
+
+interface GameController{
+
+}
+
+HerosController ..> GameController
+
+
+@enduml
