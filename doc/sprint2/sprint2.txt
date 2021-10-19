@@ -1,0 +1,134 @@
+@startuml sprint1
+
+class Labyrinthe{
+
+    + Labyrinthe(LabyrintheManager labymage)
+}
+
+interface IA{
+    + move()
+}
+
+class IARandom{
+
+}
+
+IARandom ..> IA
+
+interface Game{
+
+}
+Labyrinthe ..> Game
+Labyrinthe --"1" LabyrintheManager
+LabyrinthePainter -- "1" LabyrintheManager
+
+LabyrinthePainter ..> GamePainter
+
+class LabyrintheManager{
+    - int caseSize
+    - int WIDTH
+    - int HEIGHT
+
+    + LabyrintheManager()
+    + Heros getHeros()    
+
+    + createFromFile(String file)
+    + evolve()
+}
+
+LabyrintheManager --"*" Case
+
+class EntityPainter{
+    + EntityPainter(Entity e)
+
+    + void draw(BufferedImage im)
+}
+
+LabyrinthePainter -- "*" EntityPainter
+
+
+class LabyrinthePainter{
+    - int WIDTHCASE
+    - int HEIGHTCASE
+
+    + void draw(BufferedImage im)
+}
+
+interface Case {
+    + isTraversable()
+}
+
+class CaseSol {
+
+}
+
+class CaseMure {
+
+}
+
+class CaseCoffre {
+
+}
+
+CaseSol ..> Case
+CaseMure ..> Case
+CaseCoffre ..> Case
+
+
+LabyrintheManager -- "1" Heros
+LabyrintheManager -- "*" Monstre
+
+abstract class Entite{
+
+    - int[] pos 
+    - int wigth
+    - int height
+    - int[] speed
+
+    + Entite(int px, int py, int h, int w)
+    + void move(int dx, int dy)
+    + int getPosX()
+    + int getPosY()
+    + int getWidth()
+    + int getHeight()
+    + int getSpeedX()
+    + int getSpeedY()
+
+}
+
+class Heros{
+
+}
+
+Heros --> Entite
+
+abstract class Monstre{
+
+    + move()
+
+}
+
+Monstre --> Entite
+Monstre -- "1" IA
+
+
+class MonstreNormal{
+
+}
+
+MonstreNormal --> Monstre
+
+class HerosController{
+    - Cmd commandeEnCours
+
+    + HerosController()
+}
+
+interface GameController{
+
+}
+
+HerosController ..> GameController
+
+
+@enduml
