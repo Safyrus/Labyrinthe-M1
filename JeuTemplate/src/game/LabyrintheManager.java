@@ -1,47 +1,74 @@
 package game;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileReader;
 
 import engine.GamePainter;
 import entite.Heros;
+import cases.Case;
+import cases.CaseMur;
+import cases.CaseSol;
 
 public class LabyrintheManager implements GamePainter{
 
-    private static final int caseSize = 30;
-    private LabyrintheObject[] monde = { LabyrintheObject.WALL, LabyrintheObject.WALL, LabyrintheObject.GROUND, LabyrintheObject.GROUND, LabyrintheObject.WALL};
+    private static final int caseSize = 20;
+    private Map<Character, LabyrintheObject> objectDic; 
     private Heros heros;
-    protected static final int WIDTH = 1920;
-	protected static final int HEIGHT = 1080;
+    private static final int WIDTH = 1920;
+	private static final int HEIGHT = 1080;
+    private static final int WIDTHCASE = 10;
+	private static final int HEIGHTCASE = 10;
+    private ArrayList<Case> laby;
     
     public LabyrintheManager(){
-        this.heros = new Heros(20,20,10,10);
+
+        laby = new ArrayList<Case>(HEIGHTCASE*WIDTHCASE);
+        this.heros = new Heros(100,100,caseSize,caseSize);
+        this.objectDic = new HashMap<>();
+        this.objectDic.put('0', LabyrintheObject.GROUND);
+        this.objectDic.put('1', LabyrintheObject.WALL);
+        //this.buildMonde("Labyrinthe-M1/JeuTemplate/src/monde/default.txt");
+        
     }
 
     public void draw(BufferedImage im){
-        
-        for (int i = 0; i < monde.length; i++) {
-			
-			switch (monde[i]){
-				case GROUND:
-					break;
 
-				case WALL:
-                    this.DrawWall(im, i);
-					break;
-			}
-		}
-
+        for (Case case1 : laby) {
+            case1.draw(im);
+        }
         heros.draw(im);
     }
 
-    public void DrawWall(BufferedImage im,int x){
-        Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.drawRect(x*caseSize, 0, caseSize, caseSize);
-        crayon.setColor(Color.RED);
-        crayon.fillRect(x*caseSize, 0, caseSize, caseSize);
-        
+    public void buildMonde(String source){
+        BufferedReader helpReader;
+        int y = 0;
+		try {
+			helpReader = new BufferedReader(new FileReader(source));
+			String ligne;
+			while ((ligne = helpReader.readLine()) != null) {
+                for (int x = 0; x < ligne.length(); x++) {
+                    switch (objectDic.get(ligne.charAt(x))) {
+                        case GROUND:
+                            laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
+                            break;
+                    
+                        case WALL:
+                            laby.add(new CaseMur(x*caseSize, y*caseSize, caseSize, caseSize));
+                            break;
+                    }
+                }  
+				System.out.println(ligne);
+                y++;
+			}
+			helpReader.close();
+		} catch (IOException e) {
+			System.out.println("Help not available");
+		}
     }
 
     @Override
