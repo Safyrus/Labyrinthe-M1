@@ -11,6 +11,7 @@ import java.io.FileReader;
 import engine.GamePainter;
 import entite.Heros;
 import cases.Case;
+import cases.CaseCoffre;
 import cases.CaseMur;
 import cases.CaseSol;
 
@@ -24,6 +25,7 @@ public class LabyrintheManager implements GamePainter{
     private static final int WIDTHCASE = 10;
 	private static final int HEIGHTCASE = 10;
     private ArrayList<Case> laby;
+    private LabyrintheEtat etat;
     
     public LabyrintheManager(){
 
@@ -32,7 +34,10 @@ public class LabyrintheManager implements GamePainter{
         this.objectDic = new HashMap<>();
         this.objectDic.put('0', LabyrintheObject.GROUND);
         this.objectDic.put('1', LabyrintheObject.WALL);
-        //this.buildMonde("Labyrinthe-M1/JeuTemplate/src/monde/default.txt");
+        this.objectDic.put('2', LabyrintheObject.COFFRE);
+        etat = LabyrintheEtat.LOADING;
+        this.buildMonde("Labyrinthe-M1/JeuTemplate/src/monde/default.txt");
+        etat = LabyrintheEtat.PLAY;
         
     }
 
@@ -60,6 +65,10 @@ public class LabyrintheManager implements GamePainter{
                         case WALL:
                             laby.add(new CaseMur(x*caseSize, y*caseSize, caseSize, caseSize));
                             break;
+
+                        case COFFRE:
+                            laby.add(new CaseCoffre(x*caseSize, y*caseSize, caseSize, caseSize));
+                            break;
                     }
                 }  
 				System.out.println(ligne);
@@ -83,5 +92,9 @@ public class LabyrintheManager implements GamePainter{
 
     public Heros getHeros(){
         return this.heros;
+    }
+
+    public LabyrintheEtat getEtat() {
+        return etat;
     }
 }

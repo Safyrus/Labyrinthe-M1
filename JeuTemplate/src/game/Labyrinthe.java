@@ -51,6 +51,20 @@ public class Labyrinthe implements Game{
 	@Override
 	public boolean isFinished() {
 		// le jeu n'est jamais fini
+        switch (labyMage.getEtat()) {
+            case PLAY:
+                return false;
+        
+            case PAUSE:
+                return false;
+            
+            case FISNISH:
+                return true;
+            
+            case LOADING:
+                return false;
+        }
+        
 		return false;
 	}
     
