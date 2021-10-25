@@ -1,4 +1,4 @@
-package entite;
+package com.tp3equipe3.entite;
 
 public abstract class Monstre extends Entite{
 

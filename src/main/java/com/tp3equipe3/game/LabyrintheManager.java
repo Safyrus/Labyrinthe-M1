@@ -1,4 +1,4 @@
-package game;
+package com.tp3equipe3.game;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -8,11 +8,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 
-import engine.GamePainter;
-import entite.Heros;
-import cases.Case;
-import cases.CaseMur;
-import cases.CaseSol;
+import com.tp3equipe3.engine.GamePainter;
+import com.tp3equipe3.entite.Heros;
+import com.tp3equipe3.cases.Case;
+import com.tp3equipe3.cases.CaseMur;
+import com.tp3equipe3.cases.CaseSol;
 
 public class LabyrintheManager implements GamePainter{
 
