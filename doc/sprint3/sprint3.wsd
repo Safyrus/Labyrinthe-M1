@@ -1,0 +1,164 @@
+@startuml sprint1
+
+class Labyrinthe{
+
+    + Labyrinthe(LabyrintheManager labymage)
+}
+
+interface IA{
+    + move()
+}
+
+class IARandom{
+
+}
+
+class IAEtoile{
+
+}
+IAEtoile ..> IA
+
+IARandom ..> IA
+
+interface Game{
+
+}
+Labyrinthe ..> Game
+Labyrinthe --"1" LabyrintheManager
+LabyrinthePainter -- "1" LabyrintheManager
+
+LabyrinthePainter ..> GamePainter
+
+class LabyrintheManager{
+    - int caseSize
+    - int WIDTH
+    - int HEIGHT
+    - int lvl
+
+    + LabyrintheManager()
+    + Heros getHeros()    
+    + buildWorld(String file, int lvl)
+    + destroiAllBody()
+    + void collisionMonstre(Monstre m, Heros h)
+    + void collisionCoffre(Case cc, Heros h)
+    + evolve()
+    + void save()
+}
+
+LabyrintheManager --"*" Case
+
+class Painter{
+    + Painter()
+    + void draw(BufferedImage im)
+}
+
+LabyrinthePainter -- "1" Painter
+
+
+class LabyrinthePainter{
+    - int WIDTHCASE
+    - int HEIGHTCASE
+
+    + void draw(BufferedImage im)
+}
+
+interface Case {
+    + isTraversable()
+}
+
+class CaseSol {
+
+}
+
+class CaseMure {
+
+}
+
+class CaseCoffre {
+
+}
+
+CaseSol ..> Case
+CaseMure ..> Case
+CaseCoffre ..> Case
+
+
+LabyrintheManager -- "1" Heros
+LabyrintheManager -- "*" Monstre
+
+abstract class Entite{
+
+    - int pv
+    - int degat
+
+    + Entite(int px, int py, int h, int w, int pv, int degat)
+    + void move(int dx, int dy)
+    + Boby getBody()
+    + void attack(entite e)
+    + int getPv()
+    + int getDegat()
+    + void setPv(int pv)
+
+}
+
+class Heros{
+
+}
+
+Heros --> Entite
+
+abstract class Monstre{
+
+    + move()
+
+}
+
+Monstre --> Entite
+Monstre -- "1" IA
+
+
+class MonstreNormal{
+
+}
+
+MonstreNormal --> Monstre
+
+class MonstreFantom{
+    
+}
+
+MonstreFantom --> Monstre
+
+class Body{
+    - int[] pos
+    - int[] dim
+    - int[] speed
+    - boolean traverssable
+
+    + boolean collideWith(Body b)
+    + int getPosX()
+    + int getPosY()
+    + int getWidth()
+    + int getHeight()
+    + int getSpeedX()
+    + int getSpeedY()
+
+}
+
+Body "1"-- Entite
+Body "1"-- Case
+
+class HerosController{
+    - Cmd commandeEnCours
+
+    + HerosController()
+}
+
+interface GameController{
+
+}
+
+HerosController ..> GameController
+
+
+@enduml
