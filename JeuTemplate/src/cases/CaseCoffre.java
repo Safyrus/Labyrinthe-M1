@@ -2,15 +2,15 @@ package cases;
 
 import game.LabyrintheObject;
 
-public class CaseSol extends Case{
+public class CaseCoffre extends Case{
 
-    public CaseSol(int x, int y, int h, int w){
+    public CaseCoffre(int x, int y, int h, int w){ 
         super(x, y, h, w);
         this.body.setTraverssable(true);
     }
 
     public LabyrintheObject getType(){
-        return LabyrintheObject.GROUND;
+        return LabyrintheObject.COFFRE;
     }
     
 }
