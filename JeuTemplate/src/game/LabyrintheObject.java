@@ -1,6 +1,6 @@
 package game;
 
 public enum LabyrintheObject {
-    WALL,GROUND,COFFRE; 
+    WALL,GROUND,COFFRE,MONSTRENORMAL; 
 }
 
