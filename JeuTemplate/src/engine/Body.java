@@ -70,44 +70,8 @@ public class Body {
             getHeight() + getPosY() > b.getPosY()){
             return true;
         }
-        
-        return false;
-    }
 
-    public boolean collideUp(Body b){
-        
-        if(getPosY() - getSpeedY() < b.getPosY() + b.getHeight()){
-            return true;
-        }
         return false;
-
-    }
-
-    public boolean collideRight(Body b){
-        
-        if(getPosX() + getWidth() + getSpeedX() > b.getPosX()){
-            return true;
-        }
-        return false;
-        
-    }
-
-    public boolean collideDown(Body b){
-        
-        if(getPosY() + getSpeedY() < b.getPosY() + b.getHeight()){
-            return true;
-        }
-        return false;
-        
-    }
-
-    public boolean collideLeft(Body b){
-        
-        if(getPosX() - getSpeedX() < b.getPosX() + b.getWidth()){
-            return true;
-        }
-        return false;
-        
     }
 
     public boolean isTraverssable(){
