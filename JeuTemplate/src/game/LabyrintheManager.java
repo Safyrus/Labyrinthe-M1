@@ -38,7 +38,7 @@ public class LabyrintheManager{
         this.objectDic.put('2', LabyrintheObject.COFFRE);
         this.objectDic.put('3', LabyrintheObject.MONSTRENORMAL);
         etat = LabyrintheEtat.LOADING;
-        this.buildMonde("Labyrinthe-M1/JeuTemplate/src/monde/default.txt");
+        this.buildMonde("JeuTemplate/src/monde/default.txt");
         etat = LabyrintheEtat.PLAY;
         
     }
