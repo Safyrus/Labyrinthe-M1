@@ -2,16 +2,13 @@ package game;
 
 import engine.Cmd;
 import engine.Game;
-import entite.*;
 
 public class Labyrinthe implements Game{
 
-    private Heros heros;
 	private LabyrintheManager labyMage;
 
     public Labyrinthe(LabyrintheManager labymage){
 		this.labyMage = labymage;
-		this.heros = labyMage.getHeros();
     }
 
 	/**
@@ -21,29 +18,8 @@ public class Labyrinthe implements Game{
 	 */
 	@Override
 	public void evolve(Cmd commande) {
-        switch (commande) {
-
-            case DOWN:
-                heros.move(0,heros.getSpeedY());
-                break;
-
-            case UP:
-                heros.move(0,-heros.getSpeedY());
-                break;
-
-            case LEFT:
-                heros.move(-heros.getSpeedX(),0);
-                break;
-            
-            case RIGHT:
-                heros.move(heros.getSpeedX(),0);
-                break;
-
-            case IDLE:
-                break;
-
-        }
-	}
+        this.labyMage.evolve(commande);
+    }
 
 	/**
 	 * verifier si le jeu est fini
