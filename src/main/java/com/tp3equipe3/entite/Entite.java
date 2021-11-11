@@ -1,4 +1,4 @@
-package entite;
+package com.tp3equipe3.entite;
 
 import engine.Body;
 

@@ -1,6 +1,7 @@
-package cases;
+package com.tp3equipe3.cases;
 
-import game.LabyrintheObject;
+import java.awt.image.BufferedImage;
+import com.tp3equipe3.game.LabyrintheObject;
 
 public class CaseSol extends Case{
 

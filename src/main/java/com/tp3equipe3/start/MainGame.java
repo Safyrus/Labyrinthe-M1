@@ -1,10 +1,9 @@
-package start;
+package com.tp3equipe3.start;
 
-import controller.HerosController;
-import engine.GameEngineGraphical;
-import game.Labyrinthe;
-import game.LabyrintheManager;
-import game.LabyrinthePainter;
+import com.tp3equipe3.controller.HerosController;
+import com.tp3equipe3.engine.GameEngineGraphical;
+import com.tp3equipe3.game.Labyrinthe;
+import com.tp3equipe3.game.LabyrintheManager;
 
 public class MainGame {
 

@@ -1,4 +1,4 @@
-package engine;
+package com.tp3equipe3.engine;
 
 /**
  * @author Horatiu Cirstea

@@ -1,6 +1,9 @@
-package cases;
+package com.tp3equipe3.cases;
 
-import game.LabyrintheObject;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import com.tp3equipe3.game.LabyrintheObject;
 
 public class CaseMur extends Case{
 

@@ -1,4 +1,4 @@
-package game;
+package com.tp3equipe3.game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,10 +7,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 
+<<<<<<< HEAD:src/main/java/com/tp3equipe3/game/LabyrintheManager.java
+import com.tp3equipe3.engine.GamePainter;
+import com.tp3equipe3.entite.Heros;
+import com.tp3equipe3.cases.Case;
+import com.tp3equipe3.cases.CaseMur;
+import com.tp3equipe3.cases.CaseSol;
+=======
 import entite.*;
 import ia.IARandrom;
 import cases.*;
 import engine.*;
+>>>>>>> main:JeuTemplate/src/game/LabyrintheManager.java
 
 public class LabyrintheManager{
 

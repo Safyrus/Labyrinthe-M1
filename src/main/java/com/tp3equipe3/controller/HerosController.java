@@ -1,9 +1,9 @@
-package controller;
+package com.tp3equipe3.controller;
 
 import java.awt.event.KeyEvent;
 
-import engine.Cmd;
-import engine.GameController;
+import com.tp3equipe3.engine.Cmd;
+import com.tp3equipe3.engine.GameController;
 
 public class HerosController implements GameController{
 
