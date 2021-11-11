@@ -1,13 +1,8 @@
 package com.tp3equipe3.game;
 
-<<<<<<< HEAD:src/main/java/com/tp3equipe3/game/Labyrinthe.java
 import com.tp3equipe3.engine.Cmd;
 import com.tp3equipe3.engine.Game;
 import com.tp3equipe3.entite.*;
-=======
-import engine.Cmd;
-import engine.Game;
->>>>>>> main:JeuTemplate/src/game/Labyrinthe.java
 
 public class Labyrinthe implements Game{
 
