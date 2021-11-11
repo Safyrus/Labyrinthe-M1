@@ -1,6 +1,9 @@
 package com.tp3equipe3.entite;
 
+import javax.swing.text.AbstractDocument.AbstractElement;
+
 import com.tp3equipe3.engine.Body;
+import com.tp3equipe3.game.LabyrintheEntite;
 
 public abstract class Entite{
 
@@ -27,5 +30,7 @@ public abstract class Entite{
     public Body getBody() {
         return body;
     }
+
+    public abstract LabyrintheEntite getType();
     
 }

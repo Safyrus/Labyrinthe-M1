@@ -2,7 +2,6 @@ package com.tp3equipe3.game;
 
 import com.tp3equipe3.engine.Cmd;
 import com.tp3equipe3.engine.Game;
-import com.tp3equipe3.entite.*;
 
 public class Labyrinthe implements Game{
 

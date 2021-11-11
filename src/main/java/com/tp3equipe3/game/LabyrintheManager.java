@@ -16,6 +16,7 @@ public class LabyrintheManager{
 
     private static final int caseSize = 20;
     private Map<Character, LabyrintheObject> objectDic; 
+    private Map<Character, LabyrintheEntite> entiteDic; 
     private Heros heros;
     private int timer = 0;
     private int react = 5;
@@ -31,12 +32,13 @@ public class LabyrintheManager{
 
         this.laby = new ArrayList<Case>(NBHEIGHTCASE*NBWIDTHCASE);
         this.monstres = new ArrayList<Monstre>();
-        this.heros = new Heros(60,60,caseSize,caseSize);
         this.objectDic = new HashMap<>();
+        this.entiteDic = new HashMap<>();
         this.objectDic.put('0', LabyrintheObject.GROUND);
         this.objectDic.put('1', LabyrintheObject.WALL);
         this.objectDic.put('2', LabyrintheObject.COFFRE);
-        this.objectDic.put('3', LabyrintheObject.MONSTRENORMAL);
+        this.entiteDic.put('3',LabyrintheEntite.MONSTRENORMAL);
+        this.entiteDic.put('4',LabyrintheEntite.HEROS);
         etat = LabyrintheEtat.LOADING;
         this.buildMonde("Labyrinthe-M1/src/main/java/com/tp3equipe3/monde/default.txt");
         etat = LabyrintheEtat.PLAY;
@@ -51,23 +53,33 @@ public class LabyrintheManager{
 			String ligne;
 			while ((ligne = helpReader.readLine()) != null) {
                 for (int x = 0; x < ligne.length(); x++) {
-                    switch (objectDic.get(ligne.charAt(x))) {
-                        case GROUND:
-                            laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
-                            break;
-                    
-                        case WALL:
-                            laby.add(new CaseMur(x*caseSize, y*caseSize, caseSize, caseSize));
-                            break;
-
-                        case COFFRE:
-                            laby.add(new CaseCoffre(x*caseSize, y*caseSize, caseSize, caseSize));
-                            break;
+                    if(objectDic.containsKey(ligne.charAt(x))){
+                        switch (objectDic.get(ligne.charAt(x))) {
+                            case GROUND:
+                                laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
+                                break;
                         
-                        case MONSTRENORMAL:
-                            this.monstres.add(new MonstreNormal(x*caseSize, y*caseSize, caseSize, caseSize, new IARandrom()));
-                            break;
-
+                            case WALL:
+                                laby.add(new CaseMur(x*caseSize, y*caseSize, caseSize, caseSize));
+                                break;
+    
+                            case COFFRE:
+                                laby.add(new CaseCoffre(x*caseSize, y*caseSize, caseSize, caseSize));
+                                break;
+                        }
+                    }else{
+                        switch (entiteDic.get(ligne.charAt(x))) {
+                        
+                            case MONSTRENORMAL:
+                                this.monstres.add(new MonstreNormal(x*caseSize, y*caseSize, caseSize, caseSize, new IARandrom()));
+                                break;
+    
+                            case HEROS:
+                                this.heros = new Heros(x*caseSize, y*caseSize,caseSize,caseSize);
+                                break;
+    
+    
+                        }
                     }
                 }  
                 y++;

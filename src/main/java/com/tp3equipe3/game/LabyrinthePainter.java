@@ -46,6 +46,9 @@ public class LabyrinthePainter implements GamePainter{
                     this.painter.drawMonstreNormal(im, monstre.getBody());
                     break;
 
+                default:
+                    break;
+
             }
         }
         this.painter.drawHeros(im, this.labyManage.getHeros().getBody());

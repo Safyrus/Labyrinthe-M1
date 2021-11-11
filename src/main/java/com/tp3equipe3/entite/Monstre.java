@@ -1,5 +1,6 @@
 package com.tp3equipe3.entite;
 
+import com.tp3equipe3.game.LabyrintheEntite;
 import com.tp3equipe3.game.LabyrintheObject;
 import com.tp3equipe3.ia.IA;
 import com.tp3equipe3.engine.Cmd;
@@ -15,5 +16,5 @@ public abstract class Monstre extends Entite{
 
     public abstract Cmd IA();
 
-    public abstract LabyrintheObject getType();
+    public abstract LabyrintheEntite getType();
 }

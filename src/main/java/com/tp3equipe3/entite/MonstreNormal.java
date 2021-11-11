@@ -1,6 +1,6 @@
 package com.tp3equipe3.entite;
 
-import com.tp3equipe3.game.LabyrintheObject;
+import com.tp3equipe3.game.LabyrintheEntite;
 import com.tp3equipe3.ia.IA;
 import com.tp3equipe3.engine.Cmd;
 
@@ -37,8 +37,8 @@ public class MonstreNormal extends Monstre{
         return res;
     }
 
-    public LabyrintheObject getType(){
-        return LabyrintheObject.MONSTRENORMAL;
+    public LabyrintheEntite getType(){
+        return LabyrintheEntite.MONSTRENORMAL;
     }
 
 }
