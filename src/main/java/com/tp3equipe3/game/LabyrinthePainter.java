@@ -1,11 +1,11 @@
-package game;
+package com.tp3equipe3.game;
 
 import java.awt.image.BufferedImage;
 
-import engine.GamePainter;
-import entite.*;
-import cases.*;
-import painter.*;
+import com.tp3equipe3.engine.GamePainter;
+import com.tp3equipe3.entite.*;
+import com.tp3equipe3.cases.*;
+import com.tp3equipe3.painter.*;
 
 public class LabyrinthePainter implements GamePainter{
 

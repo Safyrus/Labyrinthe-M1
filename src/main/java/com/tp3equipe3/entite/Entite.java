@@ -1,6 +1,6 @@
 package com.tp3equipe3.entite;
 
-import engine.Body;
+import com.tp3equipe3.engine.Body;
 
 public abstract class Entite{
 

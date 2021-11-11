@@ -7,9 +7,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 
-import com.tp3equipe3.engine.GamePainter;
 import com.tp3equipe3.entite.*;
 import com.tp3equipe3.cases.*;
+import com.tp3equipe3.engine.*;
+import com.tp3equipe3.ia.*;
 
 public class LabyrintheManager{
 
@@ -17,7 +18,7 @@ public class LabyrintheManager{
     private Map<Character, LabyrintheObject> objectDic; 
     private Heros heros;
     private int timer = 0;
-    private int react = 0;
+    private int react = 5;
     private static final int WIDTH = 1920;
 	private static final int HEIGHT = 1080;
     private static final int NBWIDTHCASE = 64;
@@ -37,7 +38,7 @@ public class LabyrintheManager{
         this.objectDic.put('2', LabyrintheObject.COFFRE);
         this.objectDic.put('3', LabyrintheObject.MONSTRENORMAL);
         etat = LabyrintheEtat.LOADING;
-        this.buildMonde("JeuTemplate/src/monde/default.txt");
+        this.buildMonde("Labyrinthe-M1/src/main/java/com/tp3equipe3/monde/default.txt");
         etat = LabyrintheEtat.PLAY;
         
     }

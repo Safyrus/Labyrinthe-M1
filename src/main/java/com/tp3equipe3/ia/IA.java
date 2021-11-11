@@ -1,6 +1,6 @@
-package ia;
+package com.tp3equipe3.ia;
 
-import engine.Cmd;
+import com.tp3equipe3.engine.Cmd;
 
 public interface IA {
 

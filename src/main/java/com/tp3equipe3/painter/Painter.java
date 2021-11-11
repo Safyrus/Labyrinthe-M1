@@ -1,10 +1,10 @@
-package painter;
+package com.tp3equipe3.painter;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import engine.*;
+import com.tp3equipe3.engine.*;
 
 public class Painter{
 

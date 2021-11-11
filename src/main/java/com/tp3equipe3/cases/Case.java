@@ -1,7 +1,7 @@
 package com.tp3equipe3.cases;
 
-import java.awt.image.BufferedImage;
 import com.tp3equipe3.game.LabyrintheObject;
+import com.tp3equipe3.engine.Body;
 
 public abstract class Case {
 

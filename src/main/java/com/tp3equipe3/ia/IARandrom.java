@@ -1,8 +1,8 @@
-package ia;
+package com.tp3equipe3.ia;
 
 import java.util.Random;
 
-import engine.Cmd;
+import com.tp3equipe3.engine.Cmd;
 
 public class IARandrom implements IA{
 

@@ -1,8 +1,8 @@
 package com.tp3equipe3.entite;
 
-import game.LabyrintheObject;
-import ia.IA;
-import engine.Cmd;
+import com.tp3equipe3.game.LabyrintheObject;
+import com.tp3equipe3.ia.IA;
+import com.tp3equipe3.engine.Cmd;
 
 public class MonstreNormal extends Monstre{
 

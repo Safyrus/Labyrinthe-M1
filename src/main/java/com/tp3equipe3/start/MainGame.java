@@ -2,8 +2,7 @@ package com.tp3equipe3.start;
 
 import com.tp3equipe3.controller.HerosController;
 import com.tp3equipe3.engine.GameEngineGraphical;
-import com.tp3equipe3.game.Labyrinthe;
-import com.tp3equipe3.game.LabyrintheManager;
+import com.tp3equipe3.game.*;
 
 public class MainGame {
 

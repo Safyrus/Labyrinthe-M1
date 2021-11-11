@@ -1,6 +1,6 @@
-package cases;
+package com.tp3equipe3.cases;
 
-import game.LabyrintheObject;
+import com.tp3equipe3.game.LabyrintheObject;
 
 public class CaseCoffre extends Case{
 
