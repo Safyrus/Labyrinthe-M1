@@ -1,24 +1,44 @@
 package com.tp3equipe3.entite;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import game.LabyrintheObject;
+import ia.IA;
+import engine.Cmd;
 
 public class MonstreNormal extends Monstre{
 
-    public MonstreNormal(int px, int py, int h, int l){
-        super(px,py,h,l);
+    public MonstreNormal(int px, int py, int h, int l, IA ia){
+        super(px,py,h,l,ia);
     }
 
-    public void draw(BufferedImage im) {
-        Graphics2D crayon = (Graphics2D) im.getGraphics();
-		crayon.drawRect(this.getPosX(), this.getPosY(), this.width, this.height);
-        crayon.setColor(Color.black);
-        crayon.fillRect(this.getPosX(), this.getPosY(), this.width+1, this.height+1);
-	}
+    public Cmd IA(){
 
-    public void IA(){
+        Cmd res = this.ia.move();
 
+        switch(res){
+            case DOWN:
+                this.move(0,this.getBody().getSpeedY());
+                break;
+
+            case UP:
+                this.move(0,-this.getBody().getSpeedY());
+                break;
+
+            case LEFT:
+                this.move(-this.getBody().getSpeedX(),0);
+                break;
+            
+            case RIGHT:
+                this.move(this.getBody().getSpeedX(),0);
+                break;
+
+            case IDLE:
+                break;
+        }
+        return res;
+    }
+
+    public LabyrintheObject getType(){
+        return LabyrintheObject.MONSTRENORMAL;
     }
 
 }
