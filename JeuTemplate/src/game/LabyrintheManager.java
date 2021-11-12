@@ -31,7 +31,7 @@ public class LabyrintheManager{
 
         this.laby = new ArrayList<Case>(NBHEIGHTCASE*NBWIDTHCASE);
         this.monstres = new ArrayList<Monstre>();
-        this.heros = new Heros(60,60,caseSize,caseSize);
+        this.heros = new Heros(60,60,caseSize,caseSize, 100, 12);
         this.objectDic = new HashMap<>();
         this.objectDic.put('0', LabyrintheObject.GROUND);
         this.objectDic.put('1', LabyrintheObject.WALL);
@@ -65,7 +65,7 @@ public class LabyrintheManager{
                             break;
                         
                         case MONSTRENORMAL:
-                            this.monstres.add(new MonstreNormal(x*caseSize, y*caseSize, caseSize, caseSize, new IARandrom()));
+                            this.monstres.add(new MonstreNormal(x*caseSize, y*caseSize, caseSize, caseSize, new IARandrom(), 20, 5));
                             break;
 
                     }

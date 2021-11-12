@@ -6,8 +6,8 @@ import engine.Cmd;
 
 public class MonstreNormal extends Monstre{
 
-    public MonstreNormal(int px, int py, int h, int l, IA ia){
-        super(px,py,h,l,ia);
+    public MonstreNormal(int px, int py, int h, int l, IA ia, int pv, int dmg){
+        super(px,py,h,l,ia,pv,dmg);
     }
 
     public Cmd IA(){

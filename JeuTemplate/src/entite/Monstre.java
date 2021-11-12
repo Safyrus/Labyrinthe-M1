@@ -8,8 +8,8 @@ public abstract class Monstre extends Entite{
 
     protected IA ia;
 
-    public Monstre(int px, int py, int h, int l, IA ia){
-        super(px,py,h,l);
+    public Monstre(int px, int py, int h, int l, IA ia, int pv, int dmg){
+        super(px,py,h,l,pv,dmg);
         this.ia = ia;
     }
 

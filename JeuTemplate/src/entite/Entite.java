@@ -3,6 +3,8 @@ package entite;
 import engine.Body;
 
 public abstract class Entite{
+    private int pv;
+    private int damage;
 
     /**
 	 * la taille des cases
@@ -10,12 +12,14 @@ public abstract class Entite{
 
     protected Body body;
 
-    public Entite (int px, int py, int h, int w){
+    public Entite (int px, int py, int h, int w, int pv, int dmg){
 
         body = new Body(px,py,h,w);
         this.body.setSpeedX(20);
         this.body.setSpeedY(20);
         this.body.setTraverssable(false);
+        this.pv = pv;
+        this.damage = dmg;
 
     }
 
