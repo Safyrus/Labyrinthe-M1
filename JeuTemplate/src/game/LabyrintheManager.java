@@ -26,7 +26,10 @@ public class LabyrintheManager{
     private ArrayList<Case> laby;
     private ArrayList<Monstre> monstres;
     private LabyrintheEtat etat;
-    
+
+    /**
+     * Constructor of the labyrinth manager
+     */
     public LabyrintheManager(){
 
         this.laby = new ArrayList<Case>(NBHEIGHTCASE*NBWIDTHCASE);
@@ -43,6 +46,10 @@ public class LabyrintheManager{
         
     }
 
+    /**
+     * Constructor of the world builder
+     * @param source File use to build the world
+     */
     public void buildMonde(String source){
         BufferedReader helpReader;
         int y = 0;
@@ -78,6 +85,10 @@ public class LabyrintheManager{
 		}
     }
 
+    /**
+     * Game engine, control the game evolution
+     * @param commande commande from the player
+     */
     public void evolve(Cmd commande){
         int i = 0;
 
@@ -169,6 +180,13 @@ public class LabyrintheManager{
         }
 	}
 
+    /**
+     * Function to check if an entity can move
+     * @param e the entity
+     * @param b the body we try to go through
+     * @param commande the command we want to apply
+     * @return true if the entity can move, or false
+     */
     private boolean canMove(Entite e, Body b, Cmd commande){
         if(!e.getBody().isTraverssable() && !b.isTraverssable()){
             if(commande == Cmd.LEFT){
@@ -188,16 +206,30 @@ public class LabyrintheManager{
         return true;
     }
 
+    /**
+     * Function to end the game if the player get the chest
+     * @param cc case where is the hero
+     * @param h the hero
+     */
     private void collisionCoffre(Case cc, Heros h){
         this.etat = LabyrintheEtat.FISNISH;
     }
 
+    /**
+     * Function to test if the player collide with a wall
+     * @param cc the case the player is on
+     * @param h the hero
+     */
     private void collisionWall(Case cc, Heros h){
 
     }
 
+    /**
+     * Function to test if the player collide with a monster
+     * @param m the monster
+     * @param h the hero
+     */
     private void collisionMonstre(Monstre m, Heros h){
-        //this.etat = LabyrintheEtat.FISNISH;
         h.attack(m);
         m.attack(h);
 
@@ -206,25 +238,50 @@ public class LabyrintheManager{
         }
     }
 
+    /**
+     * Function to get the labyrinth width
+     * @return the labyrinth width
+     */
 	public int getWidth() {
 		return WIDTH;
 	}
 
+    /**
+     * Function to get the labyrinth height
+     * @return the labyrinth height
+     */
 	public int getHeight() {
 		return HEIGHT;
 	}
 
+    /**
+     * Function to get the hero
+     * @return the hero
+     */
     public Heros getHeros(){
         return this.heros;
     }
 
+    /**
+     * Function to get the list of all the monsters in the labyrinth
+     * @return list of the monsters
+     */
     public ArrayList<Monstre> getMonstre(){
         return monstres;
     }
 
+    /**
+     * Function to get the game state
+     * @return the game state
+     */
     public LabyrintheEtat getEtat() {
         return etat;
     }
+
+    /**
+     * Function to get all the labyrinth cases
+     * @return list of the labyrinth cases
+     */
     public ArrayList<Case> getLaby() {
         return laby;
     }
