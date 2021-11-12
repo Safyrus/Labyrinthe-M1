@@ -23,6 +23,18 @@ public abstract class Entite{
 
     }
 
+    public int getPv() {
+        return this.pv;
+    }
+
+    public int getDamage() {
+        return this.damage;
+    }
+
+    public void setPv(int pv) {
+        this.pv = pv;
+    }
+
     public void move(int dx, int dy){
         this.body.setPosX(this.body.getPosX() + dx);
         this.body.setPosY(this.body.getPosY() + dy);
@@ -30,6 +42,10 @@ public abstract class Entite{
 
     public Body getBody() {
         return body;
+    }
+
+    public void attack(Entite e) {
+        e.setPv(e.getPv() - this.damage);
     }
     
 }
