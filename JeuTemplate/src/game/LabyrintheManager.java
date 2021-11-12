@@ -79,6 +79,8 @@ public class LabyrintheManager{
     }
 
     public void evolve(Cmd commande){
+        int i = 0;
+
         switch (commande) {
 
             case DOWN:
@@ -152,6 +154,13 @@ public class LabyrintheManager{
                 
             }
         }
+        while(i < monstres.size()) {
+            if(monstres.get(i).getPv() <= 0) {
+                monstres.remove(monstres.get(i));
+            }
+            i++;
+        }
+        i = 0;
 
         if(timer == react){
             timer = 0;
@@ -188,7 +197,13 @@ public class LabyrintheManager{
     }
 
     private void collisionMonstre(Monstre m, Heros h){
-        this.etat = LabyrintheEtat.FISNISH;
+        //this.etat = LabyrintheEtat.FISNISH;
+        h.attack(m);
+        m.attack(h);
+
+        if(h.getPv() <= 0) {
+            this.etat = LabyrintheEtat.FISNISH;
+        }
     }
 
 	public int getWidth() {
