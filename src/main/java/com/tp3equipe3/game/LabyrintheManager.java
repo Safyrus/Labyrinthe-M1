@@ -2,16 +2,12 @@ package com.tp3equipe3.game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.io.FileReader;
 
 import com.tp3equipe3.entite.*;
 import com.tp3equipe3.cases.*;
@@ -33,11 +29,15 @@ public class LabyrintheManager{
     private ArrayList<Case> laby;
     private ArrayList<Monstre> monstres;
     private LabyrintheEtat etat;
-    
+
+    /**
+     * Constructor of the labyrinth manager
+     */
     public LabyrintheManager(){
 
         this.laby = new ArrayList<Case>(NBHEIGHTCASE*NBWIDTHCASE);
         this.monstres = new ArrayList<Monstre>();
+        this.heros = new Heros(60,60,caseSize,caseSize, 100, 12);
         this.objectDic = new HashMap<>();
         this.entiteDic = new HashMap<>();
         this.objectDic.put('0', LabyrintheObject.GROUND);
@@ -51,11 +51,16 @@ public class LabyrintheManager{
         
     }
 
+    /**
+     * Constructor of the world builder
+     * @param source File use to build the world
+     */
     public void buildMonde(String source){
         BufferedReader helpReader;
         int y = 0;
 		try {
-            InputStream stream = getClass().getClassLoader().getSystemResourceAsStream(source);
+            getClass().getClassLoader();
+            InputStream stream = ClassLoader.getSystemResourceAsStream(source);
             InputStreamReader inputStreamReader = new InputStreamReader(stream);
             helpReader = new BufferedReader(inputStreamReader);
 			String ligne;
@@ -79,14 +84,12 @@ public class LabyrintheManager{
                         switch (entiteDic.get(ligne.charAt(x))) {
                         
                             case MONSTRENORMAL:
-                                this.monstres.add(new MonstreNormal(x*caseSize, y*caseSize, caseSize, caseSize, new IARandrom()));
+                                this.monstres.add(new MonstreNormal(x*caseSize, y*caseSize, caseSize, caseSize, new IARandrom(), 20, 5));
                                 break;
     
                             case HEROS:
-                                this.heros = new Heros(x*caseSize, y*caseSize,caseSize,caseSize);
+                                this.heros = new Heros(x*caseSize, y*caseSize,caseSize,caseSize, 100, 12);
                                 break;
-    
-    
                         }
                     }
                 }  
@@ -98,7 +101,13 @@ public class LabyrintheManager{
         }
     }
 
+    /**
+     * Game engine, control the game evolution
+     * @param commande commande from the player
+     */
     public void evolve(Cmd commande){
+        int i = 0;
+
         switch (commande) {
 
             case DOWN:
@@ -173,6 +182,20 @@ public class LabyrintheManager{
             }
         }
 
+        for (Case c : getAdjacents(heros)) {
+            if(hasMonstre(c) != null) {
+                heros.attack(hasMonstre(c));
+            }
+        }
+
+        while(i < monstres.size()) {
+            if(monstres.get(i).getPv() <= 0) {
+                monstres.remove(monstres.get(i));
+            }
+            i++;
+        }
+        i = 0;
+
         if(timer == react){
             timer = 0;
         }else{
@@ -180,6 +203,13 @@ public class LabyrintheManager{
         }
 	}
 
+    /**
+     * Function to check if an entity can move
+     * @param e the entity
+     * @param b the body we try to go through
+     * @param commande the command we want to apply
+     * @return true if the entity can move, or false
+     */
     private boolean canMove(Entite e, Body b, Cmd commande){
         if(!e.getBody().isTraverssable() && !b.isTraverssable()){
             if(commande == Cmd.LEFT){
@@ -199,39 +229,124 @@ public class LabyrintheManager{
         return true;
     }
 
+    /**
+     * Function to end the game if the player get the chest
+     * @param cc case where is the hero
+     * @param h the hero
+     */
     private void collisionCoffre(Case cc, Heros h){
         this.etat = LabyrintheEtat.FISNISH;
     }
 
+    /**
+     * Function to test if the player collide with a wall
+     * @param cc the case the player is on
+     * @param h the hero
+     */
     private void collisionWall(Case cc, Heros h){
 
     }
 
+    /**
+     * Function to test if the player collide with a monster
+     * @param m the monster
+     * @param h the hero
+     */
     private void collisionMonstre(Monstre m, Heros h){
-        this.etat = LabyrintheEtat.FISNISH;
+        h.attack(m);
+        m.attack(h);
+
+        if(h.getPv() <= 0) {
+            this.etat = LabyrintheEtat.FISNISH;
+        }
     }
 
+    /**
+     * Function to get the labyrinth width
+     * @return the labyrinth width
+     */
 	public int getWidth() {
 		return WIDTH;
 	}
 
+    /**
+     * Function to get the labyrinth height
+     * @return the labyrinth height
+     */
 	public int getHeight() {
 		return HEIGHT;
 	}
 
+    /**
+     * Function to get the hero
+     * @return the hero
+     */
     public Heros getHeros(){
         return this.heros;
     }
 
+    /**
+     * Function to get the list of all the monsters in the labyrinth
+     * @return list of the monsters
+     */
     public ArrayList<Monstre> getMonstre(){
         return monstres;
     }
 
+    /**
+     * Function to get the game state
+     * @return the game state
+     */
     public LabyrintheEtat getEtat() {
         return etat;
     }
+
+    /**
+     * Function to get all the labyrinth cases
+     * @return list of the labyrinth cases
+     */
     public ArrayList<Case> getLaby() {
         return laby;
+    }
+
+    /**
+     * Fonction pour avoir les cases adjacentes d'une entité
+     * @param e l'entité dont on veut les cases adjacentes
+     * @return la liste des cases adjacentes
+     */
+    private List<Case> getAdjacents(Entite e) {
+        ArrayList<Case> adjacents = new ArrayList<>();
+
+        if(!(heros.getBody().getPosX()/20 - 1 < 0))
+            adjacents.add(laby.get(heros.getBody().getPosX()/20 - 1)); //Case à gauche
+
+        if(!(heros.getBody().getPosX()/20 + 1 >= laby.size()))
+            adjacents.add(laby.get(heros.getBody().getPosX()/20 + 1)); //Case à droite
+
+        if(!(heros.getBody().getPosX()/20 + NBWIDTHCASE >= laby.size()))
+            adjacents.add(laby.get(heros.getBody().getPosX()/20 + NBWIDTHCASE)); //Case en dessous
+
+        if(!(heros.getBody().getPosX()/20 - NBHEIGHTCASE < 0))
+            adjacents.add(laby.get(heros.getBody().getPosX()/20 - NBHEIGHTCASE)); //Case au dessus
+
+        return adjacents;
+    }
+
+    /**
+     * Fonction pour savoir si une case contient un monstre
+     * @param c la case à vérifier
+     * @return un monstre si il y a, sinon null
+     */
+    private Monstre hasMonstre(Case c) {
+        Monstre m = null;
+
+        for(Monstre monstre : getMonstre()) {
+            if(c.getBody().getPosX() == monstre.getBody().getPosX()) {
+                m = monstre;
+            }
+        }
+
+        return m;
     }
 
 }

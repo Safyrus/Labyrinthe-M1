@@ -1,7 +1,6 @@
 package com.tp3equipe3.entite;
 
 import com.tp3equipe3.game.LabyrintheEntite;
-import com.tp3equipe3.game.LabyrintheObject;
 import com.tp3equipe3.ia.IA;
 import com.tp3equipe3.engine.Cmd;
 
@@ -9,8 +8,18 @@ public abstract class Monstre extends Entite{
 
     protected IA ia;
 
-    public Monstre(int px, int py, int h, int l, IA ia){
-        super(px,py,h,l);
+    /**
+     * Constructor of monster
+     * @param px position on x
+     * @param py position on y
+     * @param h high of the monster
+     * @param l lenght of the monster
+     * @param ia IA of the monster
+     * @param pv life point of the monster
+     * @param dmg damage of the monster's attacks
+     */
+    public Monstre(int px, int py, int h, int l, IA ia, int pv, int dmg){
+        super(px,py,h,l,pv,dmg);
         this.ia = ia;
     }
 
