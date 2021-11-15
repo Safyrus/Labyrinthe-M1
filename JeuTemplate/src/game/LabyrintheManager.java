@@ -165,6 +165,17 @@ public class LabyrintheManager{
                 
             }
         }
+
+        // Nécessite une fonction pour récupérer les cases adjacentes
+        // Nécessite une fonction pour savoir si une case a un monstre dessus
+        /*
+        Foreach(Case c : heros.getAdjacents) {
+            if(c.hasMonster) {
+                heros.attack(c.getMonster);
+            }
+        }
+         */
+
         while(i < monstres.size()) {
             if(monstres.get(i).getPv() <= 0) {
                 monstres.remove(monstres.get(i));
