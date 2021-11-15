@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.io.FileReader;
 
 import com.tp3equipe3.entite.*;
@@ -40,7 +46,7 @@ public class LabyrintheManager{
         this.entiteDic.put('3',LabyrintheEntite.MONSTRENORMAL);
         this.entiteDic.put('4',LabyrintheEntite.HEROS);
         etat = LabyrintheEtat.LOADING;
-        this.buildMonde("Labyrinthe-M1/src/main/java/com/tp3equipe3/monde/default.txt");
+        this.buildMonde("monde/default.txt");
         etat = LabyrintheEtat.PLAY;
         
     }
@@ -49,7 +55,9 @@ public class LabyrintheManager{
         BufferedReader helpReader;
         int y = 0;
 		try {
-			helpReader = new BufferedReader(new FileReader(source));
+            InputStream stream = getClass().getClassLoader().getSystemResourceAsStream(source);
+            InputStreamReader inputStreamReader = new InputStreamReader(stream);
+            helpReader = new BufferedReader(inputStreamReader);
 			String ligne;
 			while ((ligne = helpReader.readLine()) != null) {
                 for (int x = 0; x < ligne.length(); x++) {
@@ -87,7 +95,7 @@ public class LabyrintheManager{
 			helpReader.close();
 		} catch (IOException e) {
 			System.out.println("Help not available");
-		}
+        }
     }
 
     public void evolve(Cmd commande){
