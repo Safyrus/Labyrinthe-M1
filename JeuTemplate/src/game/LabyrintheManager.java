@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -166,15 +167,11 @@ public class LabyrintheManager{
             }
         }
 
-        // Nécessite une fonction pour récupérer les cases adjacentes
-        // Nécessite une fonction pour savoir si une case a un monstre dessus
-        /*
-        Foreach(Case c : heros.getAdjacents) {
-            if(c.hasMonster) {
-                heros.attack(c.getMonster);
+        for (Case c : getAdjacents(heros)) {
+            if(hasMonstre(c) != null) {
+                heros.attack(hasMonstre(c));
             }
         }
-         */
 
         while(i < monstres.size()) {
             if(monstres.get(i).getPv() <= 0) {
@@ -295,6 +292,46 @@ public class LabyrintheManager{
      */
     public ArrayList<Case> getLaby() {
         return laby;
+    }
+
+    /**
+     * Fonction pour avoir les cases adjacentes d'une entité
+     * @param e l'entité dont on veut les cases adjacentes
+     * @return la liste des cases adjacentes
+     */
+    private List<Case> getAdjacents(Entite e) {
+        ArrayList<Case> adjacents = new ArrayList<>();
+
+        if(!(heros.getBody().getPosX()/20 - 1 < 0))
+            adjacents.add(laby.get(heros.getBody().getPosX()/20 - 1)); //Case à gauche
+
+        if(!(heros.getBody().getPosX()/20 + 1 >= laby.size()))
+            adjacents.add(laby.get(heros.getBody().getPosX()/20 + 1)); //Case à droite
+
+        if(!(heros.getBody().getPosX()/20 + NBWIDTHCASE >= laby.size()))
+            adjacents.add(laby.get(heros.getBody().getPosX()/20 + NBWIDTHCASE)); //Case en dessous
+
+        if(!(heros.getBody().getPosX()/20 - NBHEIGHTCASE < 0))
+            adjacents.add(laby.get(heros.getBody().getPosX()/20 - NBHEIGHTCASE)); //Case au dessus
+
+        return adjacents;
+    }
+
+    /**
+     * Fonction pour savoir si une case contient un monstre
+     * @param c la case à vérifier
+     * @return un monstre si il y a, sinon null
+     */
+    private Monstre hasMonstre(Case c) {
+        Monstre m = null;
+
+        for(Monstre monstre : getMonstre()) {
+            if(c.getBody().getPosX() == monstre.getBody().getPosX()) {
+                m = monstre;
+            }
+        }
+
+        return m;
     }
 
 }
