@@ -1,5 +1,8 @@
 package com.tp3equipe3.entite;
 
+import java.util.ArrayList;
+
+import com.tp3equipe3.effect.Effect;
 import com.tp3equipe3.engine.Body;
 
 public abstract class Entite{
@@ -11,6 +14,7 @@ public abstract class Entite{
 	 */
 
     protected Body body;
+    protected ArrayList<Effect> effects;
 
     /**
      * Construtor of an entity
@@ -27,8 +31,10 @@ public abstract class Entite{
         this.body.setSpeedX(20);
         this.body.setSpeedY(20);
         this.body.setTraverssable(false);
+        this.body.setBreakable(true);
         this.pv = pv;
         this.damage = dmg;
+        this.effects = new ArrayList<>();
 
     }
 
@@ -80,6 +86,14 @@ public abstract class Entite{
      */
     public void attack(Entite e) {
         e.setPv(e.getPv() - this.damage);
+    }
+
+    public ArrayList<Effect> getEffect(){
+        return this.effects;
+    }
+
+    public void addEffect(Effect e){
+        this.effects.add(e);
     }
     
 }

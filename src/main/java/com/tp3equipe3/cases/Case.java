@@ -10,6 +10,7 @@ public abstract class Case {
     public Case(int x, int y, int h, int w){
         
         body = new Body(x,y,h,w);
+        this.body.setTraverssable(false);
     }
 
     public abstract LabyrintheObject getType();

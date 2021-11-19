@@ -11,8 +11,11 @@ import java.io.InputStreamReader;
 
 import com.tp3equipe3.entite.*;
 import com.tp3equipe3.cases.*;
+import com.tp3equipe3.effect.Effect;
+import com.tp3equipe3.effect.EffectInterpreteur;
 import com.tp3equipe3.engine.*;
 import com.tp3equipe3.ia.*;
+import com.tp3equipe3.piege.*;
 
 public class LabyrintheManager{
 
@@ -28,7 +31,9 @@ public class LabyrintheManager{
 	private static final int NBHEIGHTCASE = 36;
     private ArrayList<Case> laby;
     private ArrayList<Monstre> monstres;
+    private ArrayList<Piege> pieges;
     private LabyrintheEtat etat;
+    private EffectInterpreteur effecInt;
 
     /**
      * Constructor of the labyrinth manager
@@ -37,9 +42,11 @@ public class LabyrintheManager{
 
         this.laby = new ArrayList<Case>(NBHEIGHTCASE*NBWIDTHCASE);
         this.monstres = new ArrayList<Monstre>();
+        this.pieges = new ArrayList<>();
         this.heros = new Heros(60,60,caseSize,caseSize, 100, 12);
         this.objectDic = new HashMap<>();
         this.entiteDic = new HashMap<>();
+        effecInt = new EffectInterpreteur();
         this.objectDic.put('0', LabyrintheObject.GROUND);
         this.objectDic.put('1', LabyrintheObject.WALL);
         this.objectDic.put('2', LabyrintheObject.COFFRE);
@@ -64,6 +71,7 @@ public class LabyrintheManager{
             InputStreamReader inputStreamReader = new InputStreamReader(stream);
             helpReader = new BufferedReader(inputStreamReader);
 			String ligne;
+            pieges.add(new LavaPiege(100, 20, caseSize, caseSize));
 			while ((ligne = helpReader.readLine()) != null) {
                 for (int x = 0; x < ligne.length(); x++) {
                     if(objectDic.containsKey(ligne.charAt(x))){
@@ -153,6 +161,12 @@ public class LabyrintheManager{
             }
         }
 
+        for (Piege piege : this.getPiege()) {
+            if(piege.getBody().colideWith(this.heros.getBody())){
+                heros.addEffect(piege.getEffect());
+            }
+        }
+
         for (Monstre monstre : getMonstre()) {
             if(timer == react){
                 Cmd res = monstre.IA();
@@ -182,6 +196,13 @@ public class LabyrintheManager{
             }
         }
 
+        for (Effect effect : heros.getEffect()) {
+            if(timer == react){
+                effecInt.interprete(effect, heros);
+                System.out.println(heros.getPv());
+            }
+        }
+
         for (Case c : getAdjacents(heros)) {
             if(hasMonstre(c) != null) {
                 heros.attack(hasMonstre(c));
@@ -201,10 +222,16 @@ public class LabyrintheManager{
         }else{
             timer += 1;
         }
+
+        if(heros.getPv() <= 0){
+            this.etat = LabyrintheEtat.FISNISH;
+        }
 	}
 
     /**
      * Function to check if an entity can move
+     * entity can move if body b or entity e are 
+     * traverssable
      * @param e the entity
      * @param b the body we try to go through
      * @param commande the command we want to apply
@@ -291,6 +318,10 @@ public class LabyrintheManager{
      */
     public ArrayList<Monstre> getMonstre(){
         return monstres;
+    }
+
+    public ArrayList<Piege> getPiege(){
+        return this.pieges;
     }
 
     /**

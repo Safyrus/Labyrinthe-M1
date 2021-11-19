@@ -6,6 +6,7 @@ import com.tp3equipe3.engine.GamePainter;
 import com.tp3equipe3.entite.*;
 import com.tp3equipe3.cases.*;
 import com.tp3equipe3.painter.*;
+import com.tp3equipe3.piege.Piege;
 
 public class LabyrinthePainter implements GamePainter{
 
@@ -50,6 +51,10 @@ public class LabyrinthePainter implements GamePainter{
                     break;
 
             }
+        }
+
+        for (Piege piege : this.labyManage.getPiege()) {
+            this.painter.drawPiege(im,piege.getBody());
         }
         this.painter.drawHeros(im, this.labyManage.getHeros().getBody());
     }
