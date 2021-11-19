@@ -4,16 +4,22 @@ public class Burn extends Effect{
 
     private int degat;
     private int tik;
+    private String effect;
 
     public Burn(int degat, int tik){
 
         this.degat = degat;
         this.tik = tik;
+        this. effect = "Burn|"+this.degat+"|"+this.tik;
 
     }
 
     public String effect(){
-        return "Burn|"+this.degat+"|"+this.tik;
+        return this.effect;
+    }
+
+    public void setEffect(String e){
+        this.effect = e;
     }
 
     
