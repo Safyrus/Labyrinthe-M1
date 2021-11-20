@@ -31,7 +31,7 @@ public class LabyrintheManager{
 	private static final int NBHEIGHTCASE = 36;
     private ArrayList<Case> laby;
     private ArrayList<Monstre> monstres;
-    private ArrayList<Piege> pieges;
+    private ArrayList<Trap> pieges;
     private LabyrintheEtat etat;
     private EffectInterpreteur effecInt;
 
@@ -71,7 +71,7 @@ public class LabyrintheManager{
             InputStreamReader inputStreamReader = new InputStreamReader(stream);
             helpReader = new BufferedReader(inputStreamReader);
 			String ligne;
-            pieges.add(new LavaPiege(100, 20, caseSize, caseSize));
+            pieges.add(new LavaTrap(100, 20, caseSize, caseSize));
 			while ((ligne = helpReader.readLine()) != null) {
                 for (int x = 0; x < ligne.length(); x++) {
                     if(objectDic.containsKey(ligne.charAt(x))){
@@ -161,7 +161,7 @@ public class LabyrintheManager{
             }
         }
 
-        for (Piege piege : this.getPiege()) {
+        for (Trap piege : this.getPiege()) {
             if(piege.getBody().colideWith(this.heros.getBody())){
                 heros.addEffect(piege.getEffect());
             }
@@ -320,7 +320,7 @@ public class LabyrintheManager{
         return monstres;
     }
 
-    public ArrayList<Piege> getPiege(){
+    public ArrayList<Trap> getPiege(){
         return this.pieges;
     }
 
