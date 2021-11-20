@@ -44,7 +44,7 @@ public class LabyrinthePainter implements GamePainter{
         for (Monstre monstre : this.labyManage.getMonstre()) {
             switch(monstre.getType()){
                 case MONSTRENORMAL:
-                    this.painter.drawMonstreNormal(im, monstre.getBody());
+                    this.painter.drawMonstreNormal(im, monstre);
                     break;
 
                 default:
@@ -56,7 +56,7 @@ public class LabyrinthePainter implements GamePainter{
         for (Trap trap : this.labyManage.getTrap()) {
             this.painter.drawTrap(im,trap.getBody());
         }
-        this.painter.drawHeros(im, this.labyManage.getHeros().getBody());
+        this.painter.drawHeros(im, this.labyManage.getHeros());
     }
 
 

@@ -7,7 +7,7 @@ public class LavaTrap extends Trap{
 
     public LavaTrap(int px, int py, int h, int w){
         super(px,py,h,w);
-        this.effect = new Burn(1,5);
+        this.effect = new Burn(5,5);
         
     }
 
