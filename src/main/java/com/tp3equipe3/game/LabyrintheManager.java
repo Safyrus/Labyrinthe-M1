@@ -71,7 +71,7 @@ public class LabyrintheManager{
             InputStreamReader inputStreamReader = new InputStreamReader(stream);
             helpReader = new BufferedReader(inputStreamReader);
 			String ligne;
-            pieges.add(new LavaTrap(100, 20, caseSize, caseSize));
+            pieges.add(new LavaTrap(200, 200, caseSize, caseSize));
 			while ((ligne = helpReader.readLine()) != null) {
                 for (int x = 0; x < ligne.length(); x++) {
                     if(objectDic.containsKey(ligne.charAt(x))){

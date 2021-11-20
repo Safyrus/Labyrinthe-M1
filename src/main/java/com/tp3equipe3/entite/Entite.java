@@ -6,9 +6,10 @@ import com.tp3equipe3.effect.Effect;
 import com.tp3equipe3.engine.Body;
 
 public abstract class Entite{
-    private int pv;
-    private int damage;
-    private boolean canMove;
+    protected int pv;
+    protected int maxPv;
+    protected int damage;
+    protected boolean canMove;
 
     /**
 	 * la taille des cases
@@ -34,6 +35,7 @@ public abstract class Entite{
         this.body.setTraverssable(false);
         this.body.setBreakable(true);
         this.pv = pv;
+        this.maxPv = pv;
         this.damage = dmg;
         this.effects = new ArrayList<>();
         this.canMove = true;
@@ -103,6 +105,10 @@ public abstract class Entite{
 
     public void setCanMove(boolean b){
         this.canMove = b;
+    }
+
+    public int getMaxPv(){
+        return this.maxPv;
     }
     
 }
