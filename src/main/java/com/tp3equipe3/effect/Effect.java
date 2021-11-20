@@ -4,6 +4,7 @@ public abstract class Effect {
 
     protected int initTik;
     protected int tik;
+    protected String effect;
 
     public abstract String effect();
     public abstract void setEffect(String e);
