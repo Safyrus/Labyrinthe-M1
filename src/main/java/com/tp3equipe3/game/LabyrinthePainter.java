@@ -8,47 +8,49 @@ import com.tp3equipe3.cases.*;
 import com.tp3equipe3.painter.*;
 import com.tp3equipe3.piege.*;
 
-public class LabyrinthePainter implements GamePainter{
+public class LabyrinthePainter implements GamePainter {
 
     private static final int WIDTH = 1920;
-	private static final int HEIGHT = 1080;
+    private static final int HEIGHT = 1080;
     private LabyrintheManager labyManage;
     private Painter painter;
 
-    public LabyrinthePainter(LabyrintheManager lm){
+    public LabyrinthePainter(LabyrintheManager lm) {
         this.labyManage = lm;
         this.painter = new Painter();
     }
 
-
     @Override
-    public void draw(BufferedImage im){
+    public void draw(BufferedImage im) {
 
         for (Case case1 : this.labyManage.getLaby()) {
-            switch(case1.getType()){
-                case COFFRE:
-                    this.painter.drawChest(im, case1.getBody());
-                    break;
+            switch (case1.getType()) {
+            case COFFRE:
+                this.painter.drawChest(im, case1.getBody());
+                break;
 
-                case GROUND:
-                    this.painter.drawGround(im, case1.getBody());
-                    break;
+            case GROUND:
+                this.painter.drawGround(im, case1.getBody());
+                break;
 
-                case WALL:
-                    this.painter.drawWall(im, case1.getBody());
-                    break;
-                
+            case WALL:
+                this.painter.drawWall(im, case1.getBody());
+                break;
+
             }
         }
 
         for (Monstre monstre : this.labyManage.getMonstre()) {
-            switch(monstre.getType()){
-                case MONSTRENORMAL:
-                    this.painter.drawMonstreNormal(im, monstre);
-                    break;
+            switch (monstre.getType()) {
+            case MONSTRENORMAL:
+                this.painter.drawMonstreNormal(im, monstre);
+                break;
+            case MONSTREFOLLOW:
+                this.painter.drawMonstreFollow(im, monstre);
+                break;
+            default:
+                break;
 
-                default:
-                    break;
 
             }
         }
@@ -59,17 +61,14 @@ public class LabyrinthePainter implements GamePainter{
         this.painter.drawHeros(im, this.labyManage.getHeros());
     }
 
-
-
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
 
     @Override
-	public int getWidth() {
-		return WIDTH;
-	}
+    public int getHeight() {
+        return HEIGHT;
+    }
 
-	@Override
-	public int getHeight() {
-		return HEIGHT;
-	}
-    
 }

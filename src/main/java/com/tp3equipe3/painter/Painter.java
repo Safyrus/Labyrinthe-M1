@@ -7,9 +7,9 @@ import java.awt.image.BufferedImage;
 import com.tp3equipe3.engine.*;
 import com.tp3equipe3.entite.*;
 
-public class Painter{
+public class Painter {
 
-    public Painter(){
+    public Painter() {
 
     }
 
@@ -24,7 +24,6 @@ public class Painter{
     }
 
     public void drawHeros(BufferedImage im, Heros h){
-
         Graphics2D crayon = (Graphics2D) im.getGraphics();
         crayon.setColor(Color.blue);
         crayon.fillRect(h.getBody().getPosX(), h.getBody().getPosY(), h.getBody().getWidth(), h.getBody().getHeight());
@@ -35,34 +34,39 @@ public class Painter{
 
     public void drawMonstreNormal(BufferedImage im, Monstre m){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-		crayon.drawRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
+		    crayon.drawRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
         crayon.setColor(Color.black);
         crayon.fillRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
 
         drawLifeBar(im, m);
     }
 
-    public void drawGround(BufferedImage im, Body body){
+    public void drawGround(BufferedImage im, Body body) {
 
     }
 
-    public void drawWall(BufferedImage im, Body body){
+    public void drawWall(BufferedImage im, Body body) {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-		crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
+        crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
         crayon.setColor(Color.RED);
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
 
-    public void drawChest(BufferedImage im, Body body){
+    public void drawChest(BufferedImage im, Body body) {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-		crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
+        crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
         crayon.setColor(Color.YELLOW);
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
 
+    public void drawMonstreFollow(BufferedImage im, Body body) {
+        Graphics2D crayon = (Graphics2D) im.getGraphics();
+        crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
+        crayon.setColor(Color.gray);
+    }
     public void drawTrap(BufferedImage im, Body body){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-		crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
+		    crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
         crayon.setColor(Color.GREEN);
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
