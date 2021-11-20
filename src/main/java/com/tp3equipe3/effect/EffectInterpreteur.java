@@ -23,8 +23,10 @@ public class EffectInterpreteur {
         
             case STUN:
                 if(effect.getTik() > 0){
+                    e.setCanMove(false);
                     effect.setTik(effect.getTik() - 1);
                 }else{
+                    e.setCanMove(true);
                     effect.resetTik();
                 }
                 break;
