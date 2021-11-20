@@ -3,12 +3,12 @@ package com.tp3equipe3.effect;
 public class Burn extends Effect{
 
     private int degat;
-    private int tik;
     private String effect;
 
     public Burn(int degat, int tik){
 
         this.degat = degat;
+        this.initTik = tik;
         this.tik = tik;
         this. effect = "Burn|"+this.degat+"|"+this.tik;
 
@@ -29,6 +29,5 @@ public class Burn extends Effect{
             return true;
         return false;
     }
-
-    
+ 
 }

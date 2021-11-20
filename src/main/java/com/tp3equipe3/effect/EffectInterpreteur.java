@@ -17,6 +17,8 @@ public class EffectInterpreteur {
                 e.setPv(e.getPv() - Integer.parseInt(effs[1]));
                 int newtik = Integer.parseInt(effs[2]) - 1;
                 effect.setEffect(effs[0]+"|"+effs[1]+"|"+newtik);
+            }else{
+                effect.setEffect(effs[0]+"|"+effs[1]+"|"+effect.getInitTik());
             }
         }
     }

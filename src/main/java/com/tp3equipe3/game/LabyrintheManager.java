@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -164,6 +163,8 @@ public class LabyrintheManager{
 
         for (Trap piege : this.getTrap()) {
             if(piege.getBody().colideWith(this.heros.getBody())){
+                if(heros.getEffect().contains(piege.getEffect()))
+                    heros.getEffect().remove(piege.getEffect());
                 heros.addEffect(piege.getEffect());
             }
         }
@@ -197,14 +198,16 @@ public class LabyrintheManager{
             }
         }
 
+        ArrayList<Effect> removeEffects = new ArrayList<>();
         for (Effect effect : heros.getEffect()) {
             if(timer == react){
-                effecInt.interprete(effect, heros);
-                //Predicate<Effect> condition = e -> (e.isEnd());
-                //heros.getEffect().removeIf(condition);
-                System.out.println(heros.getPv());
+                effecInt.interprete(effect, heros); 
+                if(effect.isEnd())
+                    removeEffects.add(effect);
             }
         }
+        heros.getEffect().removeAll(removeEffects);
+        removeEffects.clear();
 
         for (Case c : getAdjacents(heros)) {
             if(hasMonstre(c) != null) {
