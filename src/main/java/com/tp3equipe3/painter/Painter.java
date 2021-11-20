@@ -43,7 +43,7 @@ public class Painter{
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
 
-    public void drawPiege(BufferedImage im, Body body){
+    public void drawTrap(BufferedImage im, Body body){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
 		crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
         crayon.setColor(Color.GREEN);

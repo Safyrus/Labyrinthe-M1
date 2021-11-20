@@ -3,7 +3,7 @@ package com.tp3equipe3.piege;
 import com.tp3equipe3.effect.Effect;
 import com.tp3equipe3.engine.Body;
 
-public abstract class Trap {
+public abstract class Trap{
 
     protected Body body;
     protected Effect effect;

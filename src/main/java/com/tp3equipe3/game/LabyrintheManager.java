@@ -161,7 +161,7 @@ public class LabyrintheManager{
             }
         }
 
-        for (Trap piege : this.getPiege()) {
+        for (Trap piege : this.getTrap()) {
             if(piege.getBody().colideWith(this.heros.getBody())){
                 heros.addEffect(piege.getEffect());
             }
@@ -320,7 +320,7 @@ public class LabyrintheManager{
         return monstres;
     }
 
-    public ArrayList<Trap> getPiege(){
+    public ArrayList<Trap> getTrap(){
         return this.pieges;
     }
 
