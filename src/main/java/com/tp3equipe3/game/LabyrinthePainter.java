@@ -6,6 +6,7 @@ import com.tp3equipe3.engine.GamePainter;
 import com.tp3equipe3.entite.*;
 import com.tp3equipe3.cases.*;
 import com.tp3equipe3.painter.*;
+import com.tp3equipe3.piege.*;
 
 public class LabyrinthePainter implements GamePainter {
 
@@ -42,17 +43,22 @@ public class LabyrinthePainter implements GamePainter {
         for (Monstre monstre : this.labyManage.getMonstre()) {
             switch (monstre.getType()) {
             case MONSTRENORMAL:
-                this.painter.drawMonstreNormal(im, monstre.getBody());
+                this.painter.drawMonstreNormal(im, monstre);
                 break;
             case MONSTREFOLLOW:
-                this.painter.drawMonstreFollow(im, monstre.getBody());
+                this.painter.drawMonstreFollow(im, monstre);
                 break;
             default:
                 break;
 
+
             }
         }
-        this.painter.drawHeros(im, this.labyManage.getHeros().getBody());
+
+        for (Trap trap : this.labyManage.getTrap()) {
+            this.painter.drawTrap(im,trap.getBody());
+        }
+        this.painter.drawHeros(im, this.labyManage.getHeros());
     }
 
     @Override

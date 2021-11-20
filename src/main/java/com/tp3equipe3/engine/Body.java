@@ -6,6 +6,7 @@ public class Body {
     private int[] dim = new int[2];
     private int[] speed = new int[2];
     private boolean traverssable;
+    private boolean breakable;
 
     public Body(int px, int py, int h, int w){
         this.pos[0] = px;
@@ -15,6 +16,8 @@ public class Body {
         this.speed[0] = 0;
         this.speed[1] = 0;
         traverssable = false;
+        this.breakable = false;
+
 
     }
 
@@ -62,6 +65,10 @@ public class Body {
         this.traverssable = traverssable;
     }
 
+    public void setBreakable(boolean b){
+        this.breakable = b;
+    }
+
     public boolean colideWith(Body b){
 
         if(getPosX() < b.getPosX() + b.getWidth() &&
@@ -76,6 +83,10 @@ public class Body {
 
     public boolean isTraverssable(){
         return this.traverssable;
+    }
+
+    public boolean isbreakable(){
+        return this.breakable;
     }
     
 }
