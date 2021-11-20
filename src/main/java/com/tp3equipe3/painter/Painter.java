@@ -34,7 +34,7 @@ public class Painter {
 
     public void drawMonstreNormal(BufferedImage im, Monstre m){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-		    crayon.drawRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
+		crayon.drawRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
         crayon.setColor(Color.black);
         crayon.fillRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
 
@@ -59,14 +59,14 @@ public class Painter {
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
 
-    public void drawMonstreFollow(BufferedImage im, Body body) {
+    public void drawMonstreFollow(BufferedImage im, Monstre m) {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
+        crayon.drawRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
         crayon.setColor(Color.gray);
     }
     public void drawTrap(BufferedImage im, Body body){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-		    crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
+		crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
         crayon.setColor(Color.GREEN);
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
