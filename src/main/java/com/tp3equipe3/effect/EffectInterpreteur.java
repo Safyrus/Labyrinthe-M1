@@ -9,17 +9,25 @@ public class EffectInterpreteur {
     }
 
     public void interprete(Effect effect, Entite e){
-        String eff = effect.effect();
-        String[] effs = eff.split("\\|");
 
-        if(effs[0].equals("Burn")){
-            if(Integer.parseInt(effs[2]) > 0){
-                e.setPv(e.getPv() - Integer.parseInt(effs[1]));
-                int newtik = Integer.parseInt(effs[2]) - 1;
-                effect.setEffect(effs[0]+"|"+effs[1]+"|"+newtik);
-            }else{
-                effect.setEffect(effs[0]+"|"+effs[1]+"|"+effect.getInitTik());
-            }
+        switch (effect.getType()) {
+            case BURN:
+                if(effect.getTik() > 0){
+                    Burn b = (Burn) effect;
+                    e.setPv(e.getPv() - b.getDegat());
+                    effect.setTik(effect.getTik() - 1);
+                }else{
+                    effect.resetTik();
+                }
+                break;
+        
+            case STUN:
+                if(effect.getTik() > 0){
+                    effect.setTik(effect.getTik() - 1);
+                }else{
+                    effect.resetTik();
+                }
+                break;
         }
     }
     
