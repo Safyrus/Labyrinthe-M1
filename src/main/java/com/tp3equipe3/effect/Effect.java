@@ -4,5 +4,6 @@ public abstract class Effect {
 
     public abstract String effect();
     public abstract void setEffect(String e);
+    public abstract boolean isEnd();
     
 }

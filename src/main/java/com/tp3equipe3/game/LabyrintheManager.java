@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -199,6 +200,8 @@ public class LabyrintheManager{
         for (Effect effect : heros.getEffect()) {
             if(timer == react){
                 effecInt.interprete(effect, heros);
+                //Predicate<Effect> condition = e -> (e.isEnd());
+                //heros.getEffect().removeIf(condition);
                 System.out.println(heros.getPv());
             }
         }

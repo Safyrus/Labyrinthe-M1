@@ -22,5 +22,13 @@ public class Burn extends Effect{
         this.effect = e;
     }
 
+    public boolean isEnd(){
+        String eff = effect;
+        String[] effs = eff.split("\\|");
+        if(Integer.parseInt(effs[2]) == 0)
+            return true;
+        return false;
+    }
+
     
 }
