@@ -45,6 +45,7 @@ public class LabyrintheManager{
         this.objectDic.put('2', LabyrintheObject.COFFRE);
         this.entiteDic.put('3',LabyrintheEntite.MONSTRENORMAL);
         this.entiteDic.put('4',LabyrintheEntite.HEROS);
+        this.entiteDic.put('5',LabyrintheEntite.MONSTREFOLLOW);
         etat = LabyrintheEtat.LOADING;
         this.buildMonde("monde/default.txt");
         etat = LabyrintheEtat.PLAY;
@@ -90,6 +91,9 @@ public class LabyrintheManager{
                             case HEROS:
                                 this.heros = new Heros(x*caseSize, y*caseSize,caseSize,caseSize, 100, 12);
                                 break;
+                            case MONSTREFOLLOW:
+                            this.monstres.add(new MonstreFollow(x*caseSize, y*caseSize, caseSize, caseSize, 20, 5, this));
+                            break;
                         }
                     }
                 }  
@@ -317,17 +321,17 @@ public class LabyrintheManager{
     private List<Case> getAdjacents(Entite e) {
         ArrayList<Case> adjacents = new ArrayList<>();
 
-        if(!(heros.getBody().getPosX()/20 - 1 < 0))
-            adjacents.add(laby.get(heros.getBody().getPosX()/20 - 1)); //Case à gauche
+        if(!(e.getBody().getPosX()/20 - 1 < 0))
+            adjacents.add(laby.get(e.getBody().getPosX()/20 - 1)); //Case à gauche
 
-        if(!(heros.getBody().getPosX()/20 + 1 >= laby.size()))
-            adjacents.add(laby.get(heros.getBody().getPosX()/20 + 1)); //Case à droite
+        if(!(e.getBody().getPosX()/20 + 1 >= laby.size()))
+            adjacents.add(laby.get(e.getBody().getPosX()/20 + 1)); //Case à droite
 
-        if(!(heros.getBody().getPosX()/20 + NBWIDTHCASE >= laby.size()))
-            adjacents.add(laby.get(heros.getBody().getPosX()/20 + NBWIDTHCASE)); //Case en dessous
+        if(!(e.getBody().getPosX()/20 + NBWIDTHCASE >= laby.size()))
+            adjacents.add(laby.get(e.getBody().getPosX()/20 + NBWIDTHCASE)); //Case en dessous
 
-        if(!(heros.getBody().getPosX()/20 - NBHEIGHTCASE < 0))
-            adjacents.add(laby.get(heros.getBody().getPosX()/20 - NBHEIGHTCASE)); //Case au dessus
+        if(!(e.getBody().getPosX()/20 - NBHEIGHTCASE < 0))
+            adjacents.add(laby.get(e.getBody().getPosX()/20 - NBHEIGHTCASE)); //Case au dessus
 
         return adjacents;
     }
@@ -342,7 +346,9 @@ public class LabyrintheManager{
 
         for(Monstre monstre : getMonstre()) {
             if(c.getBody().getPosX() == monstre.getBody().getPosX()) {
-                m = monstre;
+                if(c.getBody().getPosY() == monstre.getBody().getPosY()) {
+                    m = monstre;
+                }
             }
         }
 
