@@ -25,27 +25,31 @@ public class IAFollow implements IA {
 
     @Override
     public Cmd move() {
-        Cmd cmd = null;
+        Cmd cmd = Cmd.IDLE;
 
-        if (labyrinthe != null && labyrinthe.getHeros() != null && entity != null) {
-            int hX = labyrinthe.getHeros().getBody().getPosX();
-            int hY = labyrinthe.getHeros().getBody().getPosY();
-            int eX = entity.getBody().getPosX();
-            int eY = entity.getBody().getPosY();
+        int disHeroMonstre = Math.abs(entity.getBody().getPosX() - labyrinthe.getHeros().getBody().getPosX()) 
+        + Math.abs(entity.getBody().getPosY() - labyrinthe.getHeros().getBody().getPosY());
+        System.out.println(disHeroMonstre);
+        if(disHeroMonstre <= entity.getCaseDistanceVision()*20){
+            if (labyrinthe != null && labyrinthe.getHeros() != null && entity != null) {
+                int hX = labyrinthe.getHeros().getBody().getPosX();
+                int hY = labyrinthe.getHeros().getBody().getPosY();
+                int eX = entity.getBody().getPosX();
+                int eY = entity.getBody().getPosY();
 
-            double angle = getAngle(eX, eY, hX, hY);
+                double angle = getAngle(eX, eY, hX, hY);
 
-            if (angle <= 45 && angle >= -45) {
-                cmd = Cmd.RIGHT;
-            } else if (angle <= 135 && angle >= 45) {
-                cmd = Cmd.DOWN;
-            } else if (angle >= 135 || angle <= -135) {
-                cmd = Cmd.LEFT;
-            } else if (angle >= -135 && angle <= -45) {
-                cmd = Cmd.UP;
+                if (angle <= 45 && angle >= -45) {
+                    cmd = Cmd.RIGHT;
+                } else if (angle <= 135 && angle >= 45) {
+                    cmd = Cmd.DOWN;
+                } else if (angle >= 135 || angle <= -135) {
+                    cmd = Cmd.LEFT;
+                } else if (angle >= -135 && angle <= -45) {
+                    cmd = Cmd.UP;
+                }
             }
         }
-
         return cmd;
     }
 

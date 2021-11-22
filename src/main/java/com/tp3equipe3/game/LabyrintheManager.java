@@ -100,8 +100,8 @@ public class LabyrintheManager{
                                 this.heros = new Heros(x*caseSize, y*caseSize,caseSize,caseSize, 100, 12);
                                 break;
                             case MONSTREFOLLOW:
-                            this.monstres.add(new MonstreFollow(x*caseSize, y*caseSize, caseSize, caseSize, 20, 5, this));
-                            break;
+                                this.monstres.add(new MonstreFollow(x*caseSize, y*caseSize, caseSize, caseSize, 20, 5, this));
+                                break;
                         }
                     }
                 }  
