@@ -19,7 +19,7 @@ import com.tp3equipe3.piege.*;
 
 public class LabyrintheManager{
 
-    private static final int caseSize = 20;
+    public static final int caseSize = 20;
     private Map<Character, LabyrintheObject> objectDic; 
     private Map<Character, LabyrintheEntite> entiteDic; 
     private Heros heros;

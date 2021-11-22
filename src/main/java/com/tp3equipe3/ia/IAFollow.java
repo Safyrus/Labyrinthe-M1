@@ -29,7 +29,6 @@ public class IAFollow implements IA {
 
         int disHeroMonstre = Math.abs(entity.getBody().getPosX() - labyrinthe.getHeros().getBody().getPosX()) 
         + Math.abs(entity.getBody().getPosY() - labyrinthe.getHeros().getBody().getPosY());
-        System.out.println(disHeroMonstre);
         if(disHeroMonstre <= entity.getCaseDistanceVision()*20){
             if (labyrinthe != null && labyrinthe.getHeros() != null && entity != null) {
                 int hX = labyrinthe.getHeros().getBody().getPosX();
