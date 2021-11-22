@@ -41,7 +41,7 @@ public class LabyrinthePainter implements GamePainter {
 
                 }
             }else{
-                this.painter.drawBrouillard(im, case1.getBody());
+                this.painter.drawBrouillard(im, case1.getBody(), 255);
             }
         }
 
@@ -58,7 +58,7 @@ public class LabyrinthePainter implements GamePainter {
                     break;
                 }
             }else{
-                this.painter.drawBrouillard(im, monstre.getBody());
+                this.painter.drawBrouillard(im, monstre.getBody(), 255);
             }
         }
 

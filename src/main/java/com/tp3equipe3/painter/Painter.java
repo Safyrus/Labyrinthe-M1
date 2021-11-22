@@ -70,9 +70,9 @@ public class Painter {
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
 
-    public void drawBrouillard(BufferedImage im, Body body){
+    public void drawBrouillard(BufferedImage im, Body body, int opac){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.setColor(Color.CYAN);
+        crayon.setColor(new Color(0, 255, 255, opac));
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
 
