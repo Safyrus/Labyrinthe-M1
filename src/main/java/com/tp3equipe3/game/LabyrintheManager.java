@@ -101,18 +101,21 @@ public class LabyrintheManager{
                             case HEROS:
                                 this.heros = new Heros(x*caseSize, y*caseSize,caseSize,caseSize, 100, 12);
                                 break;
+
                             case MONSTREFOLLOW:
-                            this.monstres.add(new MonstreFollow(x*caseSize, y*caseSize, caseSize, caseSize, 20, 5, this));
-                            break;
+                                this.monstres.add(new MonstreFollow(x*caseSize, y*caseSize, caseSize, caseSize, 20, 5, this));
+                                break;
                         }
                     }
                 }  
                 y++;
 			}
 			helpReader.close();
+            newWorld = false;
 		} catch (IOException e) {
 			System.out.println("Help not available");
         }
+        
     }
 
     /**
@@ -236,7 +239,6 @@ public class LabyrintheManager{
         }
 
         if(heros.getPv() <= 0){
-            this.newWorld = false;
             this.etat = LabyrintheEtat.FISNISH;
         }
 
@@ -285,7 +287,8 @@ public class LabyrintheManager{
      * @param h the hero
      */
     private void collisionCoffre(Case cc, Heros h){
-        this.etat = LabyrintheEtat.FISNISH;
+        //this.etat = LabyrintheEtat.FISNISH;
+        newWorld = true;
     }
 
     /**
@@ -412,8 +415,6 @@ public class LabyrintheManager{
         this.pieges.clear();
         this.monstres.clear();
         this.laby.clear();
-        this.entiteDic.clear();
-        this.objectDic.clear();
     }
 
 }
