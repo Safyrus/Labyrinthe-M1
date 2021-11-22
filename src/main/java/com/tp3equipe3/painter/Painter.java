@@ -34,7 +34,6 @@ public class Painter {
 
     public void drawMonstreNormal(BufferedImage im, Monstre m){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-		crayon.drawRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
         crayon.setColor(Color.black);
         crayon.fillRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
 
@@ -47,27 +46,33 @@ public class Painter {
 
     public void drawWall(BufferedImage im, Body body) {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
         crayon.setColor(Color.RED);
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
 
     public void drawChest(BufferedImage im, Body body) {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
         crayon.setColor(Color.YELLOW);
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
 
     public void drawMonstreFollow(BufferedImage im, Monstre m) {
+
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.drawRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
         crayon.setColor(Color.gray);
+        crayon.fillRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
+
+        drawLifeBar(im, m);
     }
     public void drawTrap(BufferedImage im, Body body){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-		crayon.drawRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
         crayon.setColor(Color.GREEN);
+        crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
+    }
+
+    public void drawBrouillard(BufferedImage im, Body body, int opac){
+        Graphics2D crayon = (Graphics2D) im.getGraphics();
+        crayon.setColor(new Color(0, 255, 255, opac));
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
     }
 

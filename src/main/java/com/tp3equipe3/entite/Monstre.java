@@ -22,6 +22,7 @@ public abstract class Monstre extends Entite {
     public Monstre(int px, int py, int h, int l, IA ia, int pv, int dmg) {
         super(px, py, h, l, pv, dmg);
         this.ia = ia;
+        this.caseDistVision = 12;
     }
 
     public Cmd IA() {
