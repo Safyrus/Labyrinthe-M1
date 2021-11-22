@@ -25,6 +25,8 @@ public class LabyrintheManager{
     private Heros heros;
     private int timer = 0;
     private int react = 5;
+    private int level = 1;
+    private boolean newWorld = true;
     private static final int WIDTH = 1920;
 	private static final int HEIGHT = 1080;
     private static final int NBWIDTHCASE = 64;
@@ -54,7 +56,7 @@ public class LabyrintheManager{
         this.entiteDic.put('4',LabyrintheEntite.HEROS);
         this.entiteDic.put('5',LabyrintheEntite.MONSTREFOLLOW);
         etat = LabyrintheEtat.LOADING;
-        this.buildMonde("monde/default.txt");
+        this.buildMonde("monde/level"+level+".txt");
         etat = LabyrintheEtat.PLAY;
         
     }
@@ -234,7 +236,18 @@ public class LabyrintheManager{
         }
 
         if(heros.getPv() <= 0){
+            this.newWorld = false;
             this.etat = LabyrintheEtat.FISNISH;
+        }
+
+        if(newWorld) {
+            if (level == 3) {
+                this.etat = LabyrintheEtat.FISNISH;
+            } else {
+                destroiAllBody();
+                level++;
+                this.buildMonde("monde/level" + level + ".txt");
+            }
         }
 	}
 
@@ -390,6 +403,17 @@ public class LabyrintheManager{
         }
 
         return m;
+    }
+
+    /**
+     * Fonction qui detruit le monde
+     */
+    public void destroiAllBody(){
+        this.pieges.clear();
+        this.monstres.clear();
+        this.laby.clear();
+        this.entiteDic.clear();
+        this.objectDic.clear();
     }
 
 }
