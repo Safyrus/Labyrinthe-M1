@@ -94,13 +94,16 @@ public class LabyrintheManager{
                         
                             case MONSTRENORMAL:
                                 this.monstres.add(new MonstreNormal(x*caseSize, y*caseSize, caseSize, caseSize, new IARandrom(), 20, 5));
+                                laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
                                 break;
     
                             case HEROS:
                                 this.heros = new Heros(x*caseSize, y*caseSize,caseSize,caseSize, 100, 12);
+                                laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
                                 break;
                             case MONSTREFOLLOW:
                                 this.monstres.add(new MonstreFollow(x*caseSize, y*caseSize, caseSize, caseSize, 20, 5, this));
+                                laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
                                 break;
                         }
                     }
