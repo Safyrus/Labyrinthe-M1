@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 
+import com.tp3equipe3.backup.Sauvegarde;
 import com.tp3equipe3.entite.*;
 import com.tp3equipe3.cases.*;
 import com.tp3equipe3.engine.*;
@@ -27,9 +28,9 @@ public class LabyrintheManager{
     private ArrayList<Case> laby;
     private ArrayList<Monstre> monstres;
     private LabyrintheEtat etat;
+    private Sauvegarde sauvegarde;
     
     public LabyrintheManager(){
-
         this.laby = new ArrayList<Case>(NBHEIGHTCASE*NBWIDTHCASE);
         this.monstres = new ArrayList<Monstre>();
         this.objectDic = new HashMap<>();
@@ -37,12 +38,12 @@ public class LabyrintheManager{
         this.objectDic.put('0', LabyrintheObject.GROUND);
         this.objectDic.put('1', LabyrintheObject.WALL);
         this.objectDic.put('2', LabyrintheObject.COFFRE);
-        this.entiteDic.put('3',LabyrintheEntite.MONSTRENORMAL);
-        this.entiteDic.put('4',LabyrintheEntite.HEROS);
+        this.entiteDic.put('3', LabyrintheEntite.MONSTRENORMAL);
+        this.entiteDic.put('4', LabyrintheEntite.HEROS);
         etat = LabyrintheEtat.LOADING;
         this.buildMonde("Labyrinthe-M1/src/main/java/com/tp3equipe3/monde/default.txt");
         etat = LabyrintheEtat.PLAY;
-        
+        this.sauvegarde = new Sauvegarde(this);
     }
 
     public void buildMonde(String source){
