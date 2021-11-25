@@ -10,6 +10,7 @@ public abstract class Entite{
     protected int maxPv;
     protected int damage;
     protected boolean canMove;
+    protected int caseDistVision;
 
     /**
 	 * la taille des cases
@@ -39,6 +40,7 @@ public abstract class Entite{
         this.damage = dmg;
         this.effects = new ArrayList<>();
         this.canMove = true;
+        this.caseDistVision = 0;
 
     }
 
@@ -109,6 +111,10 @@ public abstract class Entite{
 
     public int getMaxPv(){
         return this.maxPv;
+    }
+
+    public int getCaseDistanceVision(){
+        return this.caseDistVision;
     }
     
 }
