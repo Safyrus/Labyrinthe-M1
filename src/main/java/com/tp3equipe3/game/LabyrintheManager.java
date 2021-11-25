@@ -25,6 +25,8 @@ public class LabyrintheManager{
     private Heros heros;
     private int timer = 0;
     private int react = 5;
+    private int level = 1;
+    private boolean newWorld = true;
     private static final int WIDTH = 1920;
 	private static final int HEIGHT = 1080;
     private static final int NBWIDTHCASE = 64;
@@ -54,7 +56,7 @@ public class LabyrintheManager{
         this.entiteDic.put('4',LabyrintheEntite.HEROS);
         this.entiteDic.put('5',LabyrintheEntite.MONSTREFOLLOW);
         etat = LabyrintheEtat.LOADING;
-        this.buildMonde("monde/default.txt");
+        this.buildMonde("monde/level"+level+".txt");
         etat = LabyrintheEtat.PLAY;
         
     }
@@ -101,6 +103,7 @@ public class LabyrintheManager{
                                 this.heros = new Heros(x*caseSize, y*caseSize,caseSize,caseSize, 100, 12);
                                 laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
                                 break;
+
                             case MONSTREFOLLOW:
                                 this.monstres.add(new MonstreFollow(x*caseSize, y*caseSize, caseSize, caseSize, 20, 5, this));
                                 laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
@@ -111,9 +114,11 @@ public class LabyrintheManager{
                 y++;
 			}
 			helpReader.close();
+            newWorld = false;
 		} catch (IOException e) {
 			System.out.println("Help not available");
         }
+        
     }
 
     /**
@@ -239,6 +244,16 @@ public class LabyrintheManager{
         if(heros.getPv() <= 0){
             this.etat = LabyrintheEtat.FISNISH;
         }
+
+        if(newWorld) {
+            if (level == 3) {
+                this.etat = LabyrintheEtat.FISNISH;
+            } else {
+                destroiAllBody();
+                level++;
+                this.buildMonde("monde/level" + level + ".txt");
+            }
+        }
 	}
 
     /**
@@ -275,7 +290,8 @@ public class LabyrintheManager{
      * @param h the hero
      */
     private void collisionCoffre(Case cc, Heros h){
-        this.etat = LabyrintheEtat.FISNISH;
+        //this.etat = LabyrintheEtat.FISNISH;
+        newWorld = true;
     }
 
     /**
@@ -393,6 +409,15 @@ public class LabyrintheManager{
         }
 
         return m;
+    }
+
+    /**
+     * Fonction qui detruit le monde
+     */
+    public void destroiAllBody(){
+        this.pieges.clear();
+        this.monstres.clear();
+        this.laby.clear();
     }
 
 }
