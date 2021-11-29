@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import com.tp3equipe3.backup.Sauvegarde;
 import com.tp3equipe3.entite.*;
 import com.tp3equipe3.cases.*;
 import com.tp3equipe3.effect.Effect;
@@ -34,7 +35,7 @@ public class LabyrintheManager{
     private ArrayList<Trap> pieges;
     private LabyrintheEtat etat;
     private EffectInterpreteur effecInt;
-
+    private Sauvegarde sauvegarde;
     /**
      * Constructor of the labyrinth manager
      */
@@ -56,7 +57,7 @@ public class LabyrintheManager{
         etat = LabyrintheEtat.LOADING;
         this.buildMonde("monde/default.txt");
         etat = LabyrintheEtat.PLAY;
-        
+        this.sauvegarde = new Sauvegarde(this);
     }
 
     /**
