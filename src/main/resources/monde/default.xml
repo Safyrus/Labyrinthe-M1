@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<laby id = 1>
+
+    <Monstres>
+        <Normal id = 3>
+            <pos> 10|10 </pos>
+            <pv> 100 </pv>
+            <degat> 10 </degat>
+        </normal>
+        <Follow id = 5>
+            <pos> 20|20 </pos>
+            <pv> 150 </pv>
+            <degat> 10 </degat>
+        </Follow>
+    </Monstres
+    <Heros id= 4>
+        <pos> 50|50 </pos>
+        <pv> 100 </pv>
+        <degat> 10 </degat>
+    </Heros>
+</laby>

@@ -1,0 +1,59 @@
+@startuml sprint4
+
+class Fantome {
+
+}
+
+class MenuPainter {
+ + draw(BufferedImage im)
+}
+
+class MenuController {
+ + Cmd getCommand()
+}
+
+class Menu {
+ + void evolve(Cmd userCmd)
+ + boolean isFinished()
+}
+
+MenuController ..> GameController
+MenuPainter ..> GamePainter
+Menu ..> Game
+
+interface GameController
+interface GamePainter
+interface Game
+
+class Hero {
+ + attack(Entite e)
+ - attackNormal(Entite e)
+ - attackSpecial(Entite e)
+ - attackEtc(Entite e)
+}
+
+abstract class Monstre {
+ + attack(Entite e)
+ - attackNormal(Entite e)
+ - attackSpecial(Entite e)
+ - attackEtc(Entite e)
+}
+
+class CaseSoin {
+
+}
+
+class CaseEtc {
+
+}
+
+CaseSoin --|> Case
+CaseEtc --|> Case
+
+abstract class Case {
+
+}
+
+Fantome --|> Monstre
+
+@enduml

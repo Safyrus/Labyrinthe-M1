@@ -59,6 +59,16 @@ public class HerosController implements GameController{
 		case 'Z':
 			this.commandeEnCours = Cmd.UP;
 			break;
+
+		case 'o':
+		case 'O':
+			this.commandeEnCours = Cmd.SAVE;
+			break;
+
+		case 'l':
+		case 'L':
+			this.commandeEnCours = Cmd.LOAD;
+			break;
         }
 
 	}
