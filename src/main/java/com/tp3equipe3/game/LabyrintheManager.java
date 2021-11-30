@@ -1,14 +1,12 @@
 package com.tp3equipe3.game;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
+import com.tp3equipe3.backup.Sauvegarde;
 import com.tp3equipe3.entite.*;
 import com.tp3equipe3.cases.*;
 import com.tp3equipe3.effect.Effect;
@@ -29,20 +27,20 @@ public class LabyrintheManager{
     private boolean newWorld = true;
     private static final int WIDTH = 1920;
 	private static final int HEIGHT = 1080;
-    private static final int NBWIDTHCASE = 64;
-	private static final int NBHEIGHTCASE = 36;
+    private int nbwidthcase = 64;
+    private int nbheightcase = 36;
     private ArrayList<Case> laby;
     private ArrayList<Monstre> monstres;
     private ArrayList<Trap> pieges;
     private LabyrintheEtat etat;
     private EffectInterpreteur effecInt;
-
+    private Sauvegarde sauvegarde;
     /**
      * Constructor of the labyrinth manager
      */
     public LabyrintheManager(){
 
-        this.laby = new ArrayList<Case>(NBHEIGHTCASE*NBWIDTHCASE);
+        this.laby = new ArrayList<Case>(nbheightcase * nbwidthcase);
         this.monstres = new ArrayList<Monstre>();
         this.pieges = new ArrayList<>();
         this.heros = new Heros(60,60,caseSize,caseSize, 100, 12);
@@ -58,7 +56,7 @@ public class LabyrintheManager{
         etat = LabyrintheEtat.LOADING;
         this.buildMonde("monde/level"+level+".txt");
         etat = LabyrintheEtat.PLAY;
-        
+        this.sauvegarde = new Sauvegarde(this);
     }
 
     /**
@@ -66,14 +64,32 @@ public class LabyrintheManager{
      * @param source File use to build the world
      */
     public void buildMonde(String source){
-        BufferedReader helpReader;
+        BufferedReader helpReader = null;
         int y = 0;
-		try {
-            getClass().getClassLoader();
-            InputStream stream = ClassLoader.getSystemResourceAsStream(source);
-            InputStreamReader inputStreamReader = new InputStreamReader(stream);
-            helpReader = new BufferedReader(inputStreamReader);
+        try {
+            helpReader = new BufferedReader(new FileReader(source));
+        }catch (Exception e) {
+            System.out.println("Cannot load file from filesystem");
+        }
+        if(helpReader == null) {
+            try {
+                getClass().getClassLoader();
+                InputStream stream = ClassLoader.getSystemResourceAsStream(source);
+                InputStreamReader inputStreamReader = new InputStreamReader(stream);
+                helpReader = new BufferedReader(inputStreamReader);
+            }catch (Exception e) {
+                System.out.println("Cannot load file from JAR");
+            }
+        }
+
+        this.laby = new ArrayList<Case>(nbheightcase * nbwidthcase);
+        this.monstres = new ArrayList<Monstre>();
+        this.pieges = new ArrayList<>();
+        this.heros = new Heros(60,60,caseSize,caseSize, 100, 12);
+
+        try {
 			String ligne;
+            nbwidthcase = 0;
             pieges.add(new LavaTrap(200, 200, caseSize, caseSize));
 			while ((ligne = helpReader.readLine()) != null) {
                 for (int x = 0; x < ligne.length(); x++) {
@@ -112,7 +128,11 @@ public class LabyrintheManager{
                     }
                 }  
                 y++;
+                if (nbwidthcase < ligne.length()) {
+                    nbwidthcase = ligne.length();
+                }
 			}
+            nbheightcase = y;
 			helpReader.close();
             newWorld = false;
 		} catch (IOException e) {
@@ -150,6 +170,8 @@ public class LabyrintheManager{
                 break;
 
         }
+
+        sauvegarde.update(commande);
 
         for (Case case1 : getLaby()) {
 
@@ -383,11 +405,11 @@ public class LabyrintheManager{
         if(!(e.getBody().getPosX()/20 + 1 >= laby.size()))
             adjacents.add(laby.get(e.getBody().getPosX()/20 + 1)); //Case à droite
 
-        if(!(e.getBody().getPosX()/20 + NBWIDTHCASE >= laby.size()))
-            adjacents.add(laby.get(e.getBody().getPosX()/20 + NBWIDTHCASE)); //Case en dessous
+        if(!(e.getBody().getPosX()/20 + nbwidthcase >= laby.size()))
+            adjacents.add(laby.get(e.getBody().getPosX()/20 + nbwidthcase)); //Case en dessous
 
-        if(!(e.getBody().getPosX()/20 - NBHEIGHTCASE < 0))
-            adjacents.add(laby.get(e.getBody().getPosX()/20 - NBHEIGHTCASE)); //Case au dessus
+        if(!(e.getBody().getPosX()/20 - nbheightcase < 0))
+            adjacents.add(laby.get(e.getBody().getPosX()/20 - nbheightcase)); //Case au dessus
 
         return adjacents;
     }
@@ -411,6 +433,15 @@ public class LabyrintheManager{
         return m;
     }
 
+  
+    public int getNbwidthcase() {
+        return nbwidthcase;
+    }
+
+    public int getNbheightcase() {
+        return nbheightcase;
+    }
+  
     /**
      * Fonction qui detruit le monde
      */
@@ -419,5 +450,4 @@ public class LabyrintheManager{
         this.monstres.clear();
         this.laby.clear();
     }
-
 }
