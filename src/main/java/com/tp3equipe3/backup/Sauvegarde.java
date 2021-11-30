@@ -2,6 +2,7 @@ package com.tp3equipe3.backup;
 
 import com.tp3equipe3.cases.Case;
 import com.tp3equipe3.engine.Body;
+import com.tp3equipe3.engine.Cmd;
 import com.tp3equipe3.entite.Entite;
 import com.tp3equipe3.entite.Heros;
 import com.tp3equipe3.entite.Monstre;
@@ -12,6 +13,9 @@ import com.tp3equipe3.game.LabyrintheObject;
 import java.awt.event.KeyEvent;
 import java.io.*;
 
+import static com.tp3equipe3.engine.Cmd.LOAD;
+import static com.tp3equipe3.engine.Cmd.SAVE;
+
 public class Sauvegarde {
     private LabyrintheManager lab;
 
@@ -20,59 +24,59 @@ public class Sauvegarde {
     }
 
 
-    public void update(KeyEvent e){
-        switch (e.getKeyChar()) {
+    public void update(Cmd commande){
+        switch (commande) {
             // si on appuie sur 's',commande sauvegarder
-            case 's':
-            case 'S':
+            case SAVE:
                 this.save();
                 break;
 
             // si on appuie sur 'l',commande charger
-            case 'l':
-            case 'L':
+            case LOAD:
                 this.load();
                 break;
         }
     }
 
     public void load(){
-        this.lab.buildMonde("monstre/data.txt");
+        this.lab.buildMonde("data.txt");
     }
 
     public void save(){
         //on met les infos du laby dans un tableau a deux dimensions
         int cpt =0;
-        int tab[][] = new int[lab.getHeight()][lab.getWidth()];
+        int w = lab.getNbwidthcase();
+        int h = lab.getNbheightcase();
+        int tab[][] = new int[h][w];
         for(Case c : lab.getLaby()){
             switch (c.getType()) {
                 case GROUND :
-                    tab[cpt/64][cpt%64] = 0;
+                    tab[cpt/w][cpt%w] = 0;
                     break;
                 case WALL:
-                    tab[cpt/64][cpt%64] = 1;
+                    tab[cpt/w][cpt%w] = 1;
                     break;
                 case COFFRE:
-                    tab[cpt/64][cpt%64] = 2;
+                    tab[cpt/w][cpt%w] = 2;
                     break;
             }
             cpt++;
         }
 
         //on recupere les infos du heros
-        Heros h = lab.getHeros();
-        Body body = h.getBody();
-        tab[body.getPosX()][body.getPosY()] = 4;
+        Heros heros = lab.getHeros();
+        Body body = heros.getBody();
+        tab[body.getPosY()/LabyrintheManager.caseSize][body.getPosX()/LabyrintheManager.caseSize] = 4;
 
         //on recupere les infos des monstres
         for(Entite e : lab.getMonstre()){
-            tab[e.getBody().getPosX()][e.getBody().getPosY()] = 3;
+            tab[e.getBody().getPosY()/LabyrintheManager.caseSize][e.getBody().getPosX()/LabyrintheManager.caseSize] = 3;
         }
 
 
         //creation du fichier txt à partir de tab (on recopie tab dans le fichier
         try {
-            File file = new File("monstre/data.txt");
+            File file = new File("data.txt");
             // créer le fichier s'il n'existe pas
             if (!file.exists()) {
                 file.createNewFile();
@@ -81,10 +85,12 @@ public class Sauvegarde {
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
 
-            for (int i = 0; i <5  ; i++) {
-                for (int j = 0; j <5; j++) {
-                    bw.write( tab[i][j]);
+            for (int i = 0; i < h ; i++) {
+                for (int j = 0; j <w; j++) {
+                    String s = String.valueOf(tab[i][j]);
+                    bw.write(s);
                 }
+                bw.write('\n');
             }
 
             bw.close();
