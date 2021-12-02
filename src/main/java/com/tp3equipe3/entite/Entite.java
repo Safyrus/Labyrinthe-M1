@@ -97,6 +97,14 @@ public abstract class Entite{
         e.setPv(e.getPv() - this.damage);
     }
 
+    public void magicAttack(Entite e) {
+        e.setPv(e.getPv() - 1.5 * this.damage);
+    }
+
+    public void burstAttack(Entite e) {
+        e.setPv(e.getPv() - 2.5 * this.damage);
+    }
+
     public ArrayList<Effect> getEffect(){
         return this.effects;
     }
