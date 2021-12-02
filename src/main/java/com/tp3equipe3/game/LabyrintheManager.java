@@ -240,12 +240,16 @@ public class LabyrintheManager{
         heros.getEffect().removeAll(removeEffects);
         removeEffects.clear();
 
+        //Attack adjacents ennemies
         for (Case c : getAdjacents(heros)) {
+            System.out.println(c.getBody().getPosX() + " " + c.getBody().getPosY());
+            System.out.println("héros : " + heros.getBody().getPosX() + " " + heros.getBody().getPosY());
             if(hasMonstre(c) != null) {
                 heros.magicAttack(hasMonstre(c));
             }
         }
 
+        //Delete dead monsters
         while(i < monstres.size()) {
             if(monstres.get(i).getPv() <= 0) {
                 monstres.remove(monstres.get(i));
@@ -410,17 +414,19 @@ public class LabyrintheManager{
     private List<Case> getAdjacents(Entite e) {
         ArrayList<Case> adjacents = new ArrayList<>();
 
-        if(!(e.getBody().getPosX()/20 - 1 < 0))
-            adjacents.add(laby.get(e.getBody().getPosX()/20 - 1)); //Case à gauche
+        int pos = (e.getBody().getPosY()/caseSize) * getNbwidthcase() + (e.getBody().getPosX()/caseSize);
 
-        if(!(e.getBody().getPosX()/20 + 1 >= laby.size()))
-            adjacents.add(laby.get(e.getBody().getPosX()/20 + 1)); //Case à droite
+        if(!(pos - 1 < 0))
+            adjacents.add(laby.get(pos - 1)); //Case à gauche
 
-        if(!(e.getBody().getPosX()/20 + nbwidthcase >= laby.size()))
-            adjacents.add(laby.get(e.getBody().getPosX()/20 + nbwidthcase)); //Case en dessous
+        if(!(pos + 1 >= laby.size()))
+            adjacents.add(laby.get(pos + 1)); //Case à droite
 
-        if(!(e.getBody().getPosX()/20 - nbheightcase < 0))
-            adjacents.add(laby.get(e.getBody().getPosX()/20 - nbheightcase)); //Case au dessus
+        if(!(pos + nbwidthcase >= laby.size()))
+            adjacents.add(laby.get(pos + nbwidthcase)); //Case en dessous
+
+        if(!(pos - nbheightcase < 0))
+            adjacents.add(laby.get(pos - nbheightcase)); //Case au dessus
 
         return adjacents;
     }
