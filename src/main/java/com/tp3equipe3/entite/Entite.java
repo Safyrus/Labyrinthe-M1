@@ -91,24 +91,40 @@ public abstract class Entite{
 
     /**
      * Procedure of entity attacking another entity
-     * @param e
+     * @param e attacked entity
      */
     public void attack(Entite e) {
         e.setPv(e.getPv() - this.damage);
     }
 
+    /**
+     * Procedure of entity attacking with magic another entity
+     * @param e attacked entity
+     */
     public void magicAttack(Entite e) {
-        e.setPv(e.getPv() - 1.5 * this.damage);
+        e.setPv(e.getPv() - (int)(0.8 * this.damage));
     }
 
+    /**
+     * Procedure of entity attacking with a burst attack another entity
+     * @param e attacked entity
+     */
     public void burstAttack(Entite e) {
-        e.setPv(e.getPv() - 2.5 * this.damage);
+        e.setPv(e.getPv() - (int)(2.5 * this.damage));
     }
 
+    /**
+     * Function to get effect of the entity
+     * @return effect of the entity
+     */
     public ArrayList<Effect> getEffect(){
         return this.effects;
     }
 
+    /**
+     * Procedure to add an effect on entity
+     * @param e
+     */
     public void addEffect(Effect e){
         this.effects.add(e);
     }
@@ -117,6 +133,10 @@ public abstract class Entite{
         this.canMove = b;
     }
 
+    /**
+     * Function to get maximal value of hp of an entity
+     * @return maximal value of hp
+     */
     public int getMaxPv(){
         return this.maxPv;
     }

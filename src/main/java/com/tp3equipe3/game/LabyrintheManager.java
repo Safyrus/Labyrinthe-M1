@@ -1,10 +1,7 @@
 package com.tp3equipe3.game;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.tp3equipe3.backup.Sauvegarde;
 import com.tp3equipe3.entite.*;
@@ -245,7 +242,7 @@ public class LabyrintheManager{
 
         for (Case c : getAdjacents(heros)) {
             if(hasMonstre(c) != null) {
-                heros.attack(hasMonstre(c));
+                heros.magicAttack(hasMonstre(c));
             }
         }
 
@@ -381,6 +378,10 @@ public class LabyrintheManager{
         return monstres;
     }
 
+    /**
+     * Function to get the list of all trap cases
+     * @return list of trap cases
+     */
     public ArrayList<Trap> getTrap(){
         return this.pieges;
     }
@@ -443,11 +444,19 @@ public class LabyrintheManager{
         return m;
     }
 
-  
+
+    /**
+     * Function to get the number of case on a line
+     * @return number of case per line
+     */
     public int getNbwidthcase() {
         return nbwidthcase;
     }
 
+    /**
+     * Function to get the number of case on a row
+     * @return number of case per row
+     */
     public int getNbheightcase() {
         return nbheightcase;
     }
