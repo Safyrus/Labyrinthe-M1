@@ -331,8 +331,18 @@ public class LabyrintheManager{
      * @param h the hero
      */
     private void collisionMonstre(Monstre m, Heros h){
+        Random rand = new Random();
+
+        int i = rand.nextInt(10);
+
         h.attack(m);
-        m.attack(h);
+
+        if(i < 5) {
+            m.attack(h);
+        }
+        else {
+            m.burstAttack(h);
+        }
 
         if(h.getPv() <= 0) {
             this.etat = LabyrintheEtat.FISNISH;
