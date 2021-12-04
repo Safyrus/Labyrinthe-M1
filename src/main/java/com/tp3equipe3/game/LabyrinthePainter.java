@@ -54,6 +54,9 @@ public class LabyrinthePainter implements GamePainter {
                 case MONSTREFOLLOW:
                     this.painter.drawMonstreFollow(im, monstre);
                     break;
+                case FANTOME:
+                    this.painter.drawFantome(im, monstre);
+                    break;
                 default:
                     break;
                 }
