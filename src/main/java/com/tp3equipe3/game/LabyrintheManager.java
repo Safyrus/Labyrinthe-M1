@@ -53,6 +53,7 @@ public class LabyrintheManager{
         this.entiteDic.put('3',LabyrintheEntite.MONSTRENORMAL);
         this.entiteDic.put('4',LabyrintheEntite.HEROS);
         this.entiteDic.put('5',LabyrintheEntite.MONSTREFOLLOW);
+        this.entiteDic.put('6',LabyrintheEntite.FANTOME);
         etat = LabyrintheEtat.LOADING;
         this.buildMonde("monde/level"+level+".txt");
         etat = LabyrintheEtat.PLAY;
@@ -124,6 +125,14 @@ public class LabyrintheManager{
                                 this.monstres.add(new MonstreFollow(x*caseSize, y*caseSize, caseSize, caseSize, 20, 5, this));
                                 laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
                                 break;
+
+                            case FANTOME:
+                                IAFollow ia = new IAFollow(this);
+                                Fantome f = new Fantome(x*caseSize, y*caseSize, caseSize, caseSize, ia, 10, 20);
+                                ia.setEntity(f);
+                                this.monstres.add(f);
+                                laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
+                                break;
                         }
                     }
                 }  
@@ -166,9 +175,8 @@ public class LabyrintheManager{
                 heros.move(heros.getBody().getSpeedX(),0);
                 break;
 
-            case IDLE:
+            default:
                 break;
-
         }
 
         sauvegarde.update(commande);

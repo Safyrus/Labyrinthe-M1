@@ -59,7 +59,7 @@ public class Painter {
     public void drawMonstreFollow(BufferedImage im, Monstre m) {
 
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.setColor(Color.gray);
+        crayon.setColor(Color.MAGENTA);
         crayon.fillRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
 
         drawLifeBar(im, m);
@@ -74,6 +74,14 @@ public class Painter {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
         crayon.setColor(new Color(0, 255, 255, opac));
         crayon.fillRect(body.getPosX(), body.getPosY(), body.getWidth(), body.getHeight());
+    }
+
+    public void drawFantome(BufferedImage im, Monstre m) {
+        Graphics2D crayon = (Graphics2D) im.getGraphics();
+        crayon.setColor(Color.GRAY);
+        crayon.fillRect(m.getBody().getPosX(), m.getBody().getPosY(), m.getBody().getWidth(), m.getBody().getHeight());
+
+        drawLifeBar(im, m);
     }
 
 }
