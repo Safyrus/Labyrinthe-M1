@@ -60,7 +60,7 @@ public class LabyrintheManager{
     }
 
     /**
-     * Constructor of the world builder
+     * Constructor of the world builde
      * @param source File use to build the world
      */
     public void buildMonde(String source){
@@ -449,5 +449,13 @@ public class LabyrintheManager{
         this.pieges.clear();
         this.monstres.clear();
         this.laby.clear();
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
