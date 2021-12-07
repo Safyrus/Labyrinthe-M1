@@ -47,6 +47,7 @@ public class LabyrintheManager{
         this.objectDic.put('0', LabyrintheObject.GROUND);
         this.objectDic.put('1', LabyrintheObject.WALL);
         this.objectDic.put('2', LabyrintheObject.COFFRE);
+        this.objectDic.put('7', LabyrintheObject.LAVA);
         this.entiteDic.put('3',LabyrintheEntite.MONSTRENORMAL);
         this.entiteDic.put('4',LabyrintheEntite.HEROS);
         this.entiteDic.put('5',LabyrintheEntite.MONSTREFOLLOW);
@@ -104,6 +105,8 @@ public class LabyrintheManager{
                             case COFFRE:
                                 laby.add(new CaseCoffre(x*caseSize, y*caseSize, caseSize, caseSize));
                                 break;
+                            case LAVA:
+                                pieges.add(new LavaTrap(x*caseSize, y*caseSize, caseSize, caseSize));
                         }
                     }else{
                         switch (entiteDic.get(ligne.charAt(x))) {
