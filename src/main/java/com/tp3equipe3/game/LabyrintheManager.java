@@ -253,8 +253,6 @@ public class LabyrintheManager{
 
         //Attack adjacents ennemies
         for (Case c : getAdjacents(heros)) {
-            System.out.println(c.getBody().getPosX() + " " + c.getBody().getPosY());
-            System.out.println("héros : " + heros.getBody().getPosX() + " " + heros.getBody().getPosY());
             if(hasMonstre(c) != null) {
                 heros.magicAttack(hasMonstre(c));
             }
