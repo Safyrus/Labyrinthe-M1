@@ -3,6 +3,7 @@ package com.tp3equipe3.game;
 import java.io.*;
 import java.util.*;
 
+import com.tp3equipe3.menu.Menu;
 import com.tp3equipe3.backup.Sauvegarde;
 import com.tp3equipe3.entite.*;
 import com.tp3equipe3.cases.*;
@@ -32,6 +33,7 @@ public class LabyrintheManager{
     private LabyrintheEtat etat;
     private EffectInterpreteur effecInt;
     private Sauvegarde sauvegarde;
+    private Menu menu;
     /**
      * Constructor of the labyrinth manager
      */
@@ -56,6 +58,7 @@ public class LabyrintheManager{
         this.buildMonde("monde/level"+level+".txt");
         etat = LabyrintheEtat.PLAY;
         this.sauvegarde = new Sauvegarde(this);
+        this.menu = new Menu(this);
     }
 
     /**
@@ -180,6 +183,7 @@ public class LabyrintheManager{
         }
 
         sauvegarde.update(commande);
+        menu.changeLevel(commande);
 
         for (Case case1 : getLaby()) {
 
