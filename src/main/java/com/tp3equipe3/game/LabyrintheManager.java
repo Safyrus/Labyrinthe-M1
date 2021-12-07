@@ -1,11 +1,9 @@
 package com.tp3equipe3.game;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.tp3equipe3.menu.Menu;
 import com.tp3equipe3.backup.Sauvegarde;
 import com.tp3equipe3.entite.*;
 import com.tp3equipe3.cases.*;
@@ -35,6 +33,7 @@ public class LabyrintheManager{
     private LabyrintheEtat etat;
     private EffectInterpreteur effecInt;
     private Sauvegarde sauvegarde;
+    private Menu menu;
     /**
      * Constructor of the labyrinth manager
      */
@@ -57,6 +56,7 @@ public class LabyrintheManager{
         this.buildMonde("monde/level"+level+".txt");
         etat = LabyrintheEtat.PLAY;
         this.sauvegarde = new Sauvegarde(this);
+        this.menu = new Menu(this);
     }
 
     /**
@@ -172,6 +172,7 @@ public class LabyrintheManager{
         }
 
         sauvegarde.update(commande);
+        menu.changeLevel(commande);
 
         for (Case case1 : getLaby()) {
 
@@ -243,12 +244,16 @@ public class LabyrintheManager{
         heros.getEffect().removeAll(removeEffects);
         removeEffects.clear();
 
+        //Attack adjacents ennemies
         for (Case c : getAdjacents(heros)) {
+            System.out.println(c.getBody().getPosX() + " " + c.getBody().getPosY());
+            System.out.println("héros : " + heros.getBody().getPosX() + " " + heros.getBody().getPosY());
             if(hasMonstre(c) != null) {
-                heros.attack(hasMonstre(c));
+                heros.magicAttack(hasMonstre(c));
             }
         }
 
+        //Delete dead monsters
         while(i < monstres.size()) {
             if(monstres.get(i).getPv() <= 0) {
                 monstres.remove(monstres.get(i));
@@ -331,8 +336,18 @@ public class LabyrintheManager{
      * @param h the hero
      */
     private void collisionMonstre(Monstre m, Heros h){
+        Random rand = new Random();
+
+        int i = rand.nextInt(10);
+
         h.attack(m);
-        m.attack(h);
+
+        if(i < 5) {
+            m.attack(h);
+        }
+        else {
+            m.burstAttack(h);
+        }
 
         if(h.getPv() <= 0) {
             this.etat = LabyrintheEtat.FISNISH;
@@ -371,6 +386,10 @@ public class LabyrintheManager{
         return monstres;
     }
 
+    /**
+     * Function to get the list of all trap cases
+     * @return list of trap cases
+     */
     public ArrayList<Trap> getTrap(){
         return this.pieges;
     }
@@ -399,17 +418,19 @@ public class LabyrintheManager{
     private List<Case> getAdjacents(Entite e) {
         ArrayList<Case> adjacents = new ArrayList<>();
 
-        if(!(e.getBody().getPosX()/20 - 1 < 0))
-            adjacents.add(laby.get(e.getBody().getPosX()/20 - 1)); //Case à gauche
+        int pos = (e.getBody().getPosY()/caseSize) * getNbwidthcase() + (e.getBody().getPosX()/caseSize);
 
-        if(!(e.getBody().getPosX()/20 + 1 >= laby.size()))
-            adjacents.add(laby.get(e.getBody().getPosX()/20 + 1)); //Case à droite
+        if(!(pos - 1 < 0))
+            adjacents.add(laby.get(pos - 1)); //Case à gauche
 
-        if(!(e.getBody().getPosX()/20 + nbwidthcase >= laby.size()))
-            adjacents.add(laby.get(e.getBody().getPosX()/20 + nbwidthcase)); //Case en dessous
+        if(!(pos + 1 >= laby.size()))
+            adjacents.add(laby.get(pos + 1)); //Case à droite
 
-        if(!(e.getBody().getPosX()/20 - nbheightcase < 0))
-            adjacents.add(laby.get(e.getBody().getPosX()/20 - nbheightcase)); //Case au dessus
+        if(!(pos + nbwidthcase >= laby.size()))
+            adjacents.add(laby.get(pos + nbwidthcase)); //Case en dessous
+
+        if(!(pos - nbheightcase < 0))
+            adjacents.add(laby.get(pos - nbheightcase)); //Case au dessus
 
         return adjacents;
     }
@@ -433,11 +454,19 @@ public class LabyrintheManager{
         return m;
     }
 
-  
+
+    /**
+     * Function to get the number of case on a line
+     * @return number of case per line
+     */
     public int getNbwidthcase() {
         return nbwidthcase;
     }
 
+    /**
+     * Function to get the number of case on a row
+     * @return number of case per row
+     */
     public int getNbheightcase() {
         return nbheightcase;
     }

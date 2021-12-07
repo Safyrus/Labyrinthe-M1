@@ -5,5 +5,5 @@ package com.tp3equipe3.engine;
  *
  */
 public enum Cmd {
-	 LEFT,RIGHT,UP,DOWN,IDLE,SAVE,LOAD;
+	 LEFT,RIGHT,UP,DOWN,IDLE,SAVE,LOAD,LEVEL1, LEVEL2, LEVEL3;
 }

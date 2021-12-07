@@ -36,39 +36,54 @@ public class HerosController implements GameController{
 	public void keyPressed(KeyEvent e) {
 
 		switch (e.getKeyChar()) {
-		// si on appuie sur 'q',commande joueur est gauche
-		case 'd':
-		case 'D':
-			this.commandeEnCours = Cmd.RIGHT;
-			break;
-		
+			// si on appuie sur 'q',commande joueur est gauche
+			case 'd':
+			case 'D':
+				this.commandeEnCours = Cmd.RIGHT;
+				break;
 
-        case 'q':
-		case 'Q':
-			this.commandeEnCours = Cmd.LEFT;
-			break;
-		
 
-        case 's':
-		case 'S':
-			this.commandeEnCours = Cmd.DOWN;
-			break;
-		
+			case 'q':
+			case 'Q':
+				this.commandeEnCours = Cmd.LEFT;
+				break;
 
-        case 'z':
-		case 'Z':
-			this.commandeEnCours = Cmd.UP;
-			break;
 
-		case 'o':
-		case 'O':
-			this.commandeEnCours = Cmd.SAVE;
-			break;
+			case 's':
+			case 'S':
+				this.commandeEnCours = Cmd.DOWN;
+				break;
 
-		case 'l':
-		case 'L':
-			this.commandeEnCours = Cmd.LOAD;
-			break;
+
+			case 'z':
+			case 'Z':
+				this.commandeEnCours = Cmd.UP;
+				break;
+
+			case 'o':
+			case 'O':
+				this.commandeEnCours = Cmd.SAVE;
+				break;
+
+			case 'l':
+			case 'L':
+				this.commandeEnCours = Cmd.LOAD;
+				break;
+
+			// si on appuie sur '1' -> niveau1
+			case '1':
+				this.commandeEnCours = Cmd.LEVEL1;
+				break;
+
+
+			case '2':
+				this.commandeEnCours = Cmd.LEVEL2;
+				break;
+
+
+			case '3':
+				this.commandeEnCours = Cmd.LEVEL3;
+				break;
         }
 
 	}
