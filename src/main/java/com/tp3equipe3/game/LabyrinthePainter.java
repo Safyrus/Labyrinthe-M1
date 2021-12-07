@@ -54,6 +54,9 @@ public class LabyrinthePainter implements GamePainter {
                 case MONSTREFOLLOW:
                     this.painter.drawMonstreFollow(im, monstre);
                     break;
+                case FANTOME:
+                    this.painter.drawFantome(im, monstre);
+                    break;
                 default:
                     break;
                 }
@@ -63,7 +66,11 @@ public class LabyrinthePainter implements GamePainter {
         }
 
         for (Trap trap : this.labyManage.getTrap()) {
-            this.painter.drawTrap(im,trap.getBody());
+            if(inChampsVision(trap.getBody(), labyManage.getHeros())){
+                this.painter.drawTrap(im,trap.getBody());
+            }else{
+                this.painter.drawBrouillard(im, trap.getBody(), 255);
+            }
         }
         this.painter.drawHeros(im, this.labyManage.getHeros());
     }

@@ -40,6 +40,16 @@ public class Sauvegarde {
 
     public void load(){
         this.lab.buildMonde("data.txt");
+        try{
+            String s = "";
+            BufferedReader reader= null;
+            reader= new BufferedReader(new FileReader("niveau.txt"));
+            s = reader.readLine();
+            int niveau = Integer.parseInt(s);
+            lab.setLevel(niveau);
+        }catch(Exception e){
+            System.out.println("echec chargement de niveau");
+        }
     }
 
     public void save(){
@@ -73,6 +83,8 @@ public class Sauvegarde {
             tab[e.getBody().getPosY()/LabyrintheManager.caseSize][e.getBody().getPosX()/LabyrintheManager.caseSize] = 3;
         }
 
+        //on recupere les infos du niveau
+        int indexNiveau = lab.getLevel();
 
         //creation du fichier txt à partir de tab (on recopie tab dans le fichier
         try {
@@ -92,6 +104,25 @@ public class Sauvegarde {
                 }
                 bw.write('\n');
             }
+
+            bw.close();
+            System.out.println("Modification du fichier txt terminée!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //creation du fichier pour le niveau
+        try {
+            File file = new File("niveau.txt");
+            // créer le fichier s'il n'existe pas
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            String st = String.valueOf(indexNiveau);
+           bw.write(st);
 
             bw.close();
             System.out.println("Modification du fichier txt terminée!");

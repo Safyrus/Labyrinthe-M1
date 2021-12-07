@@ -49,9 +49,11 @@ public class LabyrintheManager{
         this.objectDic.put('0', LabyrintheObject.GROUND);
         this.objectDic.put('1', LabyrintheObject.WALL);
         this.objectDic.put('2', LabyrintheObject.COFFRE);
+        this.objectDic.put('7', LabyrintheObject.LAVA);
         this.entiteDic.put('3',LabyrintheEntite.MONSTRENORMAL);
         this.entiteDic.put('4',LabyrintheEntite.HEROS);
         this.entiteDic.put('5',LabyrintheEntite.MONSTREFOLLOW);
+        this.entiteDic.put('6',LabyrintheEntite.FANTOME);
         etat = LabyrintheEtat.LOADING;
         this.buildMonde("monde/level"+level+".txt");
         etat = LabyrintheEtat.PLAY;
@@ -60,7 +62,7 @@ public class LabyrintheManager{
     }
 
     /**
-     * Constructor of the world builder
+     * Constructor of the world builde
      * @param source File use to build the world
      */
     public void buildMonde(String source){
@@ -106,6 +108,8 @@ public class LabyrintheManager{
                             case COFFRE:
                                 laby.add(new CaseCoffre(x*caseSize, y*caseSize, caseSize, caseSize));
                                 break;
+                            case LAVA:
+                                pieges.add(new LavaTrap(x*caseSize, y*caseSize, caseSize, caseSize));
                         }
                     }else{
                         switch (entiteDic.get(ligne.charAt(x))) {
@@ -122,6 +126,14 @@ public class LabyrintheManager{
 
                             case MONSTREFOLLOW:
                                 this.monstres.add(new MonstreFollow(x*caseSize, y*caseSize, caseSize, caseSize, 20, 5, this));
+                                laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
+                                break;
+
+                            case FANTOME:
+                                IAFollow ia = new IAFollow(this);
+                                Fantome f = new Fantome(x*caseSize, y*caseSize, caseSize, caseSize, ia, 10, 20);
+                                ia.setEntity(f);
+                                this.monstres.add(f);
                                 laby.add(new CaseSol(x*caseSize, y*caseSize, caseSize, caseSize));
                                 break;
                         }
@@ -166,9 +178,8 @@ public class LabyrintheManager{
                 heros.move(heros.getBody().getSpeedX(),0);
                 break;
 
-            case IDLE:
+            default:
                 break;
-
         }
 
         sauvegarde.update(commande);
@@ -246,8 +257,6 @@ public class LabyrintheManager{
 
         //Attack adjacents ennemies
         for (Case c : getAdjacents(heros)) {
-            System.out.println(c.getBody().getPosX() + " " + c.getBody().getPosY());
-            System.out.println("héros : " + heros.getBody().getPosX() + " " + heros.getBody().getPosY());
             if(hasMonstre(c) != null) {
                 heros.magicAttack(hasMonstre(c));
             }
@@ -478,5 +487,13 @@ public class LabyrintheManager{
         this.pieges.clear();
         this.monstres.clear();
         this.laby.clear();
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

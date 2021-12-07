@@ -27,6 +27,17 @@ Exécuter le .jar créé dans le dossier target avec un double clique ou bien en
 - 2: niveau2
 - 3: niveau3
 
+## Code couleur
+
+- Blanc: sol
+- Rouge: mur
+- Jaune: coffre
+- Bleu: joueur
+- Noir: monstre
+- Magenta: monstre qui suit le joueur
+- Gris: fantome qui traverse les murs
+- Vert: piège
+
 ## Autre
 
 Lien du trello:
